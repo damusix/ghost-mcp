@@ -1,6 +1,6 @@
 tool: claude
 max_iterations: 50
-anchor: null
+anchor: c582130c0897cd30b20aa3fc4500ce87141e5bb4
 prompt:
   - docs/ralph-loop/ralph-prompt.md
 status: docs/ralph-loop/ralph-status.md
