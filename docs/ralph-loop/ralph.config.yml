@@ -1,0 +1,7 @@
+tool: claude
+max_iterations: 50
+anchor: null
+prompt:
+  - docs/ralph-loop/ralph-prompt.md
+status: docs/ralph-loop/ralph-status.md
+quality_checks: []
