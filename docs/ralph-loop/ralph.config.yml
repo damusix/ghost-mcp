@@ -4,4 +4,7 @@ anchor: c582130c0897cd30b20aa3fc4500ce87141e5bb4
 prompt:
   - docs/ralph-loop/ralph-prompt.md
 status: docs/ralph-loop/ralph-status.md
-quality_checks: []
+quality_checks:
+  - vp check
+  - vp test
+  - vp build

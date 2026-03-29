@@ -1,0 +1,7 @@
+# ralph log — 2026-03-29T21:07:50.681Z
+# CWD: /home/ralph/ghost-mcp
+# command: init
+
+[2026-03-29T21:07:50.682Z] [INFO] log: docs/ralph-loop/logs/ralph-2026-03-29T21-07-50-677Z.log
+[2026-03-29T21:07:50.742Z] [OK] initialized (anchor: c582130c0897)
+[2026-03-29T21:07:50.743Z] [INFO] edit docs/ralph-loop/ralph-prompt.md, then run: ralph
