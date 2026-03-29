@@ -66,3 +66,13 @@ vite v8.0.3 building client environment for production...
 ✓ 0 modules transformed.
 [2Ktransforming...
 **stashed:** yes — next iteration can `git stash pop` to recover
+
+### Iteration 6 — Quality Check Failure (appended by loop)
+**check:** vp check
+**output:** [1m[31merror:[39m[0m Formatting issues found
+
+docs/ralph-loop/ralph-status.md (63ms)
+
+Found formatting issues in 1 file (365ms, 2 threads). Run `vp check --fix` to fix them.
+
+**stashed:** yes — next iteration can `git stash pop` to recover
