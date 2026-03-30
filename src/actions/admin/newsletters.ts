@@ -1,0 +1,86 @@
+import { z } from "zod";
+import type { ActionDefinition } from "../registry.js";
+
+const browseParams = z.object({
+  limit: z
+    .union([z.number(), z.literal("all")])
+    .optional()
+    .describe("Number of results per page"),
+  page: z.number().optional().describe("Page number"),
+  order: z.string().optional().describe("Sort order"),
+});
+
+const readParams = z.object({
+  id: z.string().describe("Newsletter ID"),
+});
+
+const newsletterWriteFields = {
+  name: z.string().describe("Newsletter name"),
+  description: z.string().optional().describe("Newsletter description"),
+  slug: z.string().optional().describe("Newsletter slug"),
+  sender_name: z.string().optional().describe("Sender name in emails"),
+  sender_email: z.string().optional().describe("Sender email address (must be validated)"),
+  sender_reply_to: z.enum(["newsletter", "support"]).optional().describe("Reply-to address type"),
+  status: z.enum(["active", "archived"]).optional().describe("Newsletter status"),
+  visibility: z.string().optional().describe("Newsletter visibility"),
+  subscribe_on_signup: z.boolean().optional().describe("Auto-subscribe new members"),
+  sort_order: z.number().optional().describe("Sort order position"),
+  header_image: z.string().optional().describe("Header image URL"),
+  show_header_icon: z.boolean().optional().describe("Show site icon in header"),
+  show_header_title: z.boolean().optional().describe("Show site title in header"),
+  show_header_name: z.boolean().optional().describe("Show newsletter name in header"),
+  title_font_category: z.enum(["serif", "sans_serif"]).optional().describe("Title font category"),
+  title_alignment: z.enum(["left", "center"]).optional().describe("Title alignment"),
+  show_feature_image: z.boolean().optional().describe("Show feature image in emails"),
+  body_font_category: z.enum(["serif", "sans_serif"]).optional().describe("Body font category"),
+  footer_content: z.string().optional().describe("Footer content (HTML)"),
+  show_badge: z.boolean().optional().describe("Show Ghost badge in footer"),
+};
+
+const addSchema = z.object({
+  ...newsletterWriteFields,
+  name: z.string().describe("Newsletter name (required)"),
+});
+
+const editSchema = z.object({
+  id: z.string().describe("Newsletter ID (required)"),
+  ...newsletterWriteFields,
+  name: z.string().optional().describe("Newsletter name"),
+});
+
+export const adminNewsletterActions: ActionDefinition[] = [
+  {
+    name: "newsletters.browse",
+    api: "admin",
+    method: "GET",
+    path: "/newsletters/",
+    inputSchema: browseParams,
+    description: "Browse all newsletters",
+    example: { limit: "all" },
+  },
+  {
+    name: "newsletters.read",
+    api: "admin",
+    method: "GET",
+    path: "/newsletters/{id}/",
+    inputSchema: readParams,
+    description: "Read a single newsletter by ID",
+  },
+  {
+    name: "newsletters.add",
+    api: "admin",
+    method: "POST",
+    path: "/newsletters/",
+    inputSchema: addSchema,
+    description: "Create a new newsletter",
+    example: { name: "Weekly Digest", sender_name: "My Blog" },
+  },
+  {
+    name: "newsletters.edit",
+    api: "admin",
+    method: "PUT",
+    path: "/newsletters/{id}/",
+    inputSchema: editSchema,
+    description: "Update an existing newsletter",
+  },
+];

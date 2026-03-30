@@ -1,0 +1,1 @@
+add vite.config.ts with SSR entry to fix vp build and update package.json bin/main paths

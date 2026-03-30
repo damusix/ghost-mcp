@@ -1,0 +1,4 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicolo-ribaudo/oxlint-config/refs/heads/master/src/schema.json",
+  "ignorePatterns": ["node_modules", "dist"]
+}

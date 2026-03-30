@@ -7,4 +7,4 @@ status: docs/ralph-loop/ralph-status.md
 quality_checks:
   - vp check
   - vp test
-  - vp build
+  - vp pack

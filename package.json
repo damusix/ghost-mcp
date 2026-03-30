@@ -1,0 +1,44 @@
+{
+  "name": "@damusix/ghost-mcp",
+  "version": "0.0.0",
+  "description": "MCP server for Ghost CMS — manage content, members, newsletters, and more via LLMs",
+  "keywords": [
+    "ai",
+    "cms",
+    "ghost",
+    "llm",
+    "mcp"
+  ],
+  "license": "MIT",
+  "author": "Danilo Alonso <danilo@alonso.network>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/damusix/ghost-mcp.git"
+  },
+  "bin": {
+    "ghost-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@logosdx/fetch": "^8.0.0",
+    "@logosdx/utils": "^6.1.0",
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^3.24.4"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.4",
+    "@types/jsonwebtoken": "^9.0.9",
+    "typescript": "^5.8.2",
+    "vite-plus": "^0.1.15-alpha.5",
+    "vitest": "^3.1.1"
+  }
+}

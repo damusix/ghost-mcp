@@ -13,9 +13,11 @@
 ## All Webhook Events (33 total)
 
 ### Site Events
+
 - `site.changed` - Any content or settings modified
 
 ### Post Events
+
 - `post.added` - New post created
 - `post.deleted` - Post removed
 - `post.edited` - Post modified
@@ -27,6 +29,7 @@
 - `post.rescheduled` - Scheduled post date changed
 
 ### Page Events
+
 - `page.added` - New page created
 - `page.deleted` - Page removed
 - `page.edited` - Page modified
@@ -38,6 +41,7 @@
 - `page.rescheduled` - Scheduled page date changed
 
 ### Tag Events
+
 - `tag.added` - New tag created
 - `tag.edited` - Tag modified
 - `tag.deleted` - Tag removed
@@ -47,6 +51,7 @@
 - `page.tag.detached` - Tag removed from page
 
 ### Member Events
+
 - `member.added` - New member registered
 - `member.edited` - Member information updated
 - `member.deleted` - Member removed
@@ -54,10 +59,12 @@
 ## Webhook Create Payload
 
 Required fields (inferred from API behavior):
+
 - `event` - One of the events above
 - `target_url` - URL to receive the webhook POST
 
 Optional:
+
 - `name` - Human-readable name
 - `secret` - Shared secret for HMAC signature verification
 - `api_version` - Target API version

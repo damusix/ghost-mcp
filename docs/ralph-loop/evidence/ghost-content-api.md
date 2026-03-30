@@ -15,18 +15,19 @@ https://{admin_domain}/ghost/api/content/
 ```
 
 Headers:
+
 - `Accept-Version: v{major}.{minor}`
 
 ## Endpoints
 
-| Resource | Browse | Read by ID | Read by Slug |
-|----------|--------|-----------|--------------|
-| Posts | `GET /posts/` | `GET /posts/{id}/` | `GET /posts/slug/{slug}/` |
-| Pages | `GET /pages/` | `GET /pages/{id}/` | `GET /pages/slug/{slug}/` |
-| Authors | `GET /authors/` | `GET /authors/{id}/` | `GET /authors/slug/{slug}/` |
-| Tags | `GET /tags/` | `GET /tags/{id}/` | `GET /tags/slug/{slug}/` |
-| Tiers | `GET /tiers/` | - | - |
-| Settings | `GET /settings/` | - | - |
+| Resource | Browse           | Read by ID           | Read by Slug                |
+| -------- | ---------------- | -------------------- | --------------------------- |
+| Posts    | `GET /posts/`    | `GET /posts/{id}/`   | `GET /posts/slug/{slug}/`   |
+| Pages    | `GET /pages/`    | `GET /pages/{id}/`   | `GET /pages/slug/{slug}/`   |
+| Authors  | `GET /authors/`  | `GET /authors/{id}/` | `GET /authors/slug/{slug}/` |
+| Tags     | `GET /tags/`     | `GET /tags/{id}/`    | `GET /tags/slug/{slug}/`    |
+| Tiers    | `GET /tiers/`    | -                    | -                           |
+| Settings | `GET /settings/` | -                    | -                           |
 
 **All endpoints are GET-only (read-only).**
 
@@ -68,15 +69,15 @@ Tags without associated posts aren't returned unless specifically included.
 
 ## Query Parameters
 
-| Parameter | Applies To | Description |
-|-----------|-----------|-------------|
-| `include` | All | Comma-separated related data. Posts/Pages: `authors,tags`. Authors/Tags: `count.posts`. Tiers: `monthly_price,yearly_price,benefits`. |
-| `fields` | All | Limit returned properties. Conflicts with `include`. |
-| `formats` | Posts, Pages | `html` (default), `plaintext`. Syntax: `&formats=html,plaintext` |
-| `filter` | Browse | NQL filter expressions |
-| `limit` | Browse | Records per page. Default: 15. Max: 100. |
-| `page` | Browse | Pagination offset |
-| `order` | Browse | SQL-style sort. Posts default: `published_at DESC`. Pages/Tags/Authors: alphabetical. Tiers: lowest price. |
+| Parameter | Applies To   | Description                                                                                                                           |
+| --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `include` | All          | Comma-separated related data. Posts/Pages: `authors,tags`. Authors/Tags: `count.posts`. Tiers: `monthly_price,yearly_price,benefits`. |
+| `fields`  | All          | Limit returned properties. Conflicts with `include`.                                                                                  |
+| `formats` | Posts, Pages | `html` (default), `plaintext`. Syntax: `&formats=html,plaintext`                                                                      |
+| `filter`  | Browse       | NQL filter expressions                                                                                                                |
+| `limit`   | Browse       | Records per page. Default: 15. Max: 100.                                                                                              |
+| `page`    | Browse       | Pagination offset                                                                                                                     |
+| `order`   | Browse       | SQL-style sort. Posts default: `published_at DESC`. Pages/Tags/Authors: alphabetical. Tiers: lowest price.                            |
 
 ## NQL Filter Syntax
 
@@ -84,18 +85,18 @@ Format: `property:operator value`
 
 ### Operators
 
-| Operator | Meaning |
-|----------|---------|
-| `:` | Equals |
-| `-` | Not (negation prefix) |
-| `>` | Greater than |
-| `>=` | Greater than or equal |
-| `<` | Less than |
-| `<=` | Less than or equal |
-| `~` | Contains |
-| `~^` | Starts with |
-| `~$` | Ends with |
-| `[val1,val2]` | In group |
+| Operator      | Meaning               |
+| ------------- | --------------------- |
+| `:`           | Equals                |
+| `-`           | Not (negation prefix) |
+| `>`           | Greater than          |
+| `>=`          | Greater than or equal |
+| `<`           | Less than             |
+| `<=`          | Less than or equal    |
+| `~`           | Contains              |
+| `~^`          | Starts with           |
+| `~$`          | Ends with             |
+| `[val1,val2]` | In group              |
 
 ### Logical Operators
 

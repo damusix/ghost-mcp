@@ -22,6 +22,7 @@ https://{admin_domain}/ghost/api/admin/
 ```
 
 Headers:
+
 - `Accept-Version: v{major}.{minor}`
 - `Content-Type: application/json`
 
@@ -38,20 +39,20 @@ Resources always in arrays. Exceptions: `/site/` and `/settings/`.
 
 ## Endpoints Reference
 
-| Resource | Methods | Notes |
-|----------|---------|-------|
-| `/posts/` | GET (browse), GET `/{id}/`, GET `/slug/{slug}/`, POST, PUT `/{id}/`, POST `/{id}/copy`, DELETE `/{id}/` | Primary content resource. Lexical JSON format. Use `?formats=html,lexical` for HTML. |
-| `/pages/` | GET (browse), GET `/{id}/`, GET `/slug/{slug}/`, POST, PUT `/{id}/`, POST `/{id}/copy`, DELETE `/{id}/` | Static resources, same schema as posts. |
-| `/tags/` | GET (browse), GET `/{id}/`, POST, PUT `/{id}/`, DELETE `/{id}/` | Organizational taxonomy. |
-| `/tiers/` | GET (browse), GET `/{id}/`, POST, PUT `/{id}/` | Membership pricing tiers. Include: `monthly_price`, `yearly_price`, `benefits`. Filter: `type`, `visibility`, `active`. |
-| `/newsletters/` | GET (browse), GET `/{id}/`, POST, PUT `/{id}/` | Email distribution configuration. |
-| `/offers/` | GET (browse), GET `/{id}/`, POST, PUT `/{id}/` | Discount/promotional offers. Types: `percent` or `fixed`. Cadence: `month` or `year`. |
-| `/members/` | GET (browse), GET `/{id}/`, POST, PUT `/{id}/` | Audience management. Include: `newsletters`, `labels`. |
-| `/users/` | GET (browse), GET `/{id}/` | Staff users (read-only). Include: `count.posts`, `permissions`, `roles`. |
-| `/images/` | POST `/upload/` | Multipart form upload. Returns `{ images: [{ url, ref }] }`. |
-| `/themes/` | POST `/upload`, PUT `/{name}/activate` | ZIP upload for themes. Returns theme object with `name`, `package`, `active`, `templates`. |
-| `/webhooks/` | POST, PUT `/{id}/`, DELETE `/{id}/` | No GET endpoint. Cannot retrieve webhooks independently. |
-| `/site/` | GET | Site metadata. |
+| Resource        | Methods                                                                                                 | Notes                                                                                                                   |
+| --------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `/posts/`       | GET (browse), GET `/{id}/`, GET `/slug/{slug}/`, POST, PUT `/{id}/`, POST `/{id}/copy`, DELETE `/{id}/` | Primary content resource. Lexical JSON format. Use `?formats=html,lexical` for HTML.                                    |
+| `/pages/`       | GET (browse), GET `/{id}/`, GET `/slug/{slug}/`, POST, PUT `/{id}/`, POST `/{id}/copy`, DELETE `/{id}/` | Static resources, same schema as posts.                                                                                 |
+| `/tags/`        | GET (browse), GET `/{id}/`, POST, PUT `/{id}/`, DELETE `/{id}/`                                         | Organizational taxonomy.                                                                                                |
+| `/tiers/`       | GET (browse), GET `/{id}/`, POST, PUT `/{id}/`                                                          | Membership pricing tiers. Include: `monthly_price`, `yearly_price`, `benefits`. Filter: `type`, `visibility`, `active`. |
+| `/newsletters/` | GET (browse), GET `/{id}/`, POST, PUT `/{id}/`                                                          | Email distribution configuration.                                                                                       |
+| `/offers/`      | GET (browse), GET `/{id}/`, POST, PUT `/{id}/`                                                          | Discount/promotional offers. Types: `percent` or `fixed`. Cadence: `month` or `year`.                                   |
+| `/members/`     | GET (browse), GET `/{id}/`, POST, PUT `/{id}/`                                                          | Audience management. Include: `newsletters`, `labels`.                                                                  |
+| `/users/`       | GET (browse), GET `/{id}/`                                                                              | Staff users (read-only). Include: `count.posts`, `permissions`, `roles`.                                                |
+| `/images/`      | POST `/upload/`                                                                                         | Multipart form upload. Returns `{ images: [{ url, ref }] }`.                                                            |
+| `/themes/`      | POST `/upload`, PUT `/{name}/activate`                                                                  | ZIP upload for themes. Returns theme object with `name`, `package`, `active`, `templates`.                              |
+| `/webhooks/`    | POST, PUT `/{id}/`, DELETE `/{id}/`                                                                     | No GET endpoint. Cannot retrieve webhooks independently.                                                                |
+| `/site/`        | GET                                                                                                     | Site metadata.                                                                                                          |
 
 ## Post/Page Object Fields
 
