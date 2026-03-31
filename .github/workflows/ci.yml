@@ -22,8 +22,11 @@ jobs:
 
             - run: pnpm install --frozen-lockfile
 
-            - run: pnpm exec vp check
+            - name: Install Vite+
+              run: curl -fsSL https://vite.plus | bash
 
-            - run: pnpm exec vp test
+            - run: vp check
 
-            - run: pnpm exec vp pack
+            - run: vp test
+
+            - run: vp pack

@@ -50,14 +50,14 @@ describe('ghost-client', () => {
     it('sets Accept-Version header on adminApi', async () => {
         const { adminApi } = await import('../ghost-client.js');
         expect(adminApi.config).toMatchObject({
-            headers: expect.objectContaining({ 'Accept-Version': 'v5.0' }),
+            headers: expect.objectContaining({ 'Accept-Version': 'v6.0' }),
         });
     });
 
     it('sets Accept-Version header on contentApi', async () => {
         const { contentApi } = await import('../ghost-client.js');
         expect(contentApi.config).toMatchObject({
-            headers: expect.objectContaining({ 'Accept-Version': 'v5.0' }),
+            headers: expect.objectContaining({ 'Accept-Version': 'v6.0' }),
         });
     });
 

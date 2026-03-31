@@ -24,6 +24,7 @@ Set the following environment variables:
 | `GHOST_ADMIN_API_KEY`   | For admin mode   | Admin API key (`{id}:{secret}` format)                    |
 | `GHOST_CONTENT_API_KEY` | For content mode | Content API key                                           |
 | `GHOST_API_MODE`        | No               | `admin` (default) or `content`                            |
+| `GHOST_API_VERSION`     | No               | API version header (default: `v6.0`)                      |
 
 ### Claude Desktop
 
@@ -38,7 +39,9 @@ Add to your `claude_desktop_config.json`:
             "env": {
                 "GHOST_URL": "https://my-blog.ghost.io",
                 "GHOST_ADMIN_API_KEY": "your-admin-api-key",
-                "GHOST_CONTENT_API_KEY": "your-content-api-key"
+                "GHOST_CONTENT_API_KEY": "your-content-api-key",
+                "GHOST_API_MODE": "admin",
+                "GHOST_API_VERSION": "v6.0"
             }
         }
     }
@@ -48,10 +51,14 @@ Add to your `claude_desktop_config.json`:
 ### Claude Code
 
 ```bash
-claude mcp add ghost -- npx @damusix/ghost-mcp
+claude mcp add ghost \
+  -e GHOST_URL=https://my-blog.ghost.io \
+  -e GHOST_ADMIN_API_KEY=your-admin-api-key \
+  -e GHOST_CONTENT_API_KEY=your-content-api-key \
+  -e GHOST_API_MODE=admin \
+  -e GHOST_API_VERSION=v6.0 \
+  -- npx @damusix/ghost-mcp
 ```
-
-Set env vars in your shell before running.
 
 ## Tools
 
