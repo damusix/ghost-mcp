@@ -26,7 +26,9 @@ jobs:
             - run: pnpm install --frozen-lockfile
 
             - name: Install Vite+
-              run: curl -fsSL https://vite.plus | bash
+              run: |
+                curl -fsSL https://vite.plus | bash
+                echo "$HOME/.local/bin" >> $GITHUB_PATH
 
             - run: vp pack
 
