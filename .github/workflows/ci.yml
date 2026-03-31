@@ -25,12 +25,13 @@ jobs:
             - name: Install Vite+
               run: |
                 curl -fsSL https://vite.plus | bash
-                echo "$HOME/.local/bin" >> $GITHUB_PATH
-                echo "$HOME/.vp/bin" >> $GITHUB_PATH
-                ls -la $HOME/.local/bin/vp $HOME/.vp/bin/vp 2>/dev/null || true
-                find $HOME -name vp -type f 2>/dev/null || true
+                grep -i "vp\|vite" $HOME/.bashrc $HOME/.profile 2>/dev/null || true
+                find $HOME -name "vp" -o -name "vite-plus" 2>/dev/null | head -20
+                cat $HOME/.bashrc | tail -10
 
-            - run: which vp && vp --version && vp check
+            - run: |
+                source $HOME/.bashrc
+                which vp && vp check
 
             - run: vp test
 
