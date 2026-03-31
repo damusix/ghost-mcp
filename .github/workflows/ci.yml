@@ -26,8 +26,11 @@ jobs:
               run: |
                 curl -fsSL https://vite.plus | bash
                 echo "$HOME/.local/bin" >> $GITHUB_PATH
+                echo "$HOME/.vp/bin" >> $GITHUB_PATH
+                ls -la $HOME/.local/bin/vp $HOME/.vp/bin/vp 2>/dev/null || true
+                find $HOME -name vp -type f 2>/dev/null || true
 
-            - run: vp check
+            - run: which vp && vp --version && vp check
 
             - run: vp test
 
