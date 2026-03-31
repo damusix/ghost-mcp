@@ -1,5 +1,11 @@
 # @damusix/ghost-mcp
 
+## 0.1.1
+
+### Patch Changes
+
+- Fix npx execution by using a .js bin wrapper instead of pointing directly to .mjs output
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
     "name": "@damusix/ghost-mcp",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "MCP server for Ghost CMS — manage content, members, newsletters, and more via LLMs",
     "keywords": [
         "ai",
@@ -16,9 +16,10 @@
         "url": "https://github.com/damusix/ghost-mcp.git"
     },
     "bin": {
-        "ghost-mcp": "./dist/index.mjs"
+        "ghost-mcp": "./bin/ghost-mcp.js"
     },
     "files": [
+        "bin",
         "dist"
     ],
     "type": "module",
