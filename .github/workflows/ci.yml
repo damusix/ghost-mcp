@@ -17,7 +17,8 @@ jobs:
                   node-version: '22'
                   cache: true
 
-            - run: vp install
+            - name: Auto-fix formatting
+              run: vp fmt
 
             - run: vp check
 
