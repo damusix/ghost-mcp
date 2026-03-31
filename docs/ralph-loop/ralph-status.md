@@ -46,10 +46,10 @@
 - Recovered work from stash@{0} (iteration 3's stash, which contained all the code from iterations 1-3 + iteration 4's fixes).
 - Resolved merge conflict in `docs/ralph-loop/ralph-status.md` (kept theirs).
 - All quality checks confirmed passing:
-  - `vp check`: 48 files formatted, 32 files linted — all pass
-  - `vp test`: 7 test files, 67 tests — all pass
-  - `vp pack src/index.ts --dts --format esm --platform node --target es2022`: produces dist/index.mjs (49.65 kB) + dist/index.d.mts — with shebang
-  - `pnpm pack --dry-run`: clean package (dist/index.d.mts, dist/index.mjs, dist/index.mjs.map, LICENSE, package.json, README.md)
+    - `vp check`: 48 files formatted, 32 files linted — all pass
+    - `vp test`: 7 test files, 67 tests — all pass
+    - `vp pack src/index.ts --dts --format esm --platform node --target es2022`: produces dist/index.mjs (49.65 kB) + dist/index.d.mts — with shebang
+    - `pnpm pack --dry-run`: clean package (dist/index.d.mts, dist/index.mjs, dist/index.mjs.map, LICENSE, package.json, README.md)
 - Key insight: `vp build` is for app mode (expects index.html), `vp pack` is for library mode (accepts entry files). The CI workflows correctly use `vp pack`.
 - All 18 action modules registered in registry (12 admin + 6 content).
 - Changeset config, CI/CD workflows, LICENSE, README all present.
@@ -78,9 +78,9 @@
 - Recovered stash from iteration 5, resolved merge conflict in ralph-status.md.
 - Ran `vp check --fix` to fix formatting issues in ralph-status.md (the only file with formatting problems).
 - All three quality checks pass:
-  - `vp check`: 48 files formatted, 32 files linted — all pass
-  - `vp test`: 7 test files, 67 tests — all pass
-  - `vp pack`: dist/index.mjs (49.65 kB) + dist/index.d.mts + dist/index.mjs.map — all pass
+    - `vp check`: 48 files formatted, 32 files linted — all pass
+    - `vp test`: 7 test files, 67 tests — all pass
+    - `vp pack`: dist/index.mjs (49.65 kB) + dist/index.d.mts + dist/index.mjs.map — all pass
 - `pnpm pack --dry-run`: clean package with expected files
 - `dist/index.mjs` starts with `#!/usr/bin/env node` shebang
 - All tasks in ralph-prompt.md are marked complete
@@ -95,9 +95,9 @@
 
 - Popped stash@{0} from iteration 6, resolved merge conflict in ralph-status.md (kept theirs).
 - All three quality checks confirmed passing:
-  - `vp check`: 48 files formatted, 32 files linted — all pass
-  - `vp test`: 7 test files, 67 tests — all pass
-  - `vp pack`: dist/index.mjs (49.65 kB) + dist/index.d.mts — builds successfully
+    - `vp check`: 48 files formatted, 32 files linted — all pass
+    - `vp test`: 7 test files, 67 tests — all pass
+    - `vp pack`: dist/index.mjs (49.65 kB) + dist/index.d.mts — builds successfully
 - `pnpm pack --dry-run`: clean publishable package
 - `dist/index.mjs` starts with `#!/usr/bin/env node` shebang
 - All tasks in ralph-prompt.md marked complete
@@ -113,9 +113,9 @@
 
 - Popped stash@{0}, resolved merge conflict in ralph-status.md (kept theirs).
 - All three quality checks confirmed passing:
-  - `vp check`: 48 files formatted, 32 files linted — all pass
-  - `vp test`: 7 test files, 67 tests — all pass
-  - `vp pack`: dist/index.mjs (49.65 kB) + dist/index.d.mts — builds successfully
+    - `vp check`: 48 files formatted, 32 files linted — all pass
+    - `vp test`: 7 test files, 67 tests — all pass
+    - `vp pack`: dist/index.mjs (49.65 kB) + dist/index.d.mts — builds successfully
 - All "Done When" criteria met.
 - Project is complete: 32 source files, 7 test files, 67 tests, 18 action modules, 3 MCP tools, CI/CD, changesets, LICENSE, README.
 
@@ -132,9 +132,9 @@
 - Updated `package.json`: `bin` and `main` now point to `./dist/index.js` (not `.mjs`) since `vp build --ssr` outputs `.js` extension.
 - Removed `types` field since `vp build` (SSR mode) doesn't emit `.d.ts` files.
 - All three quality checks now pass:
-  - `vp check`: 49 files formatted, 33 files linted — all pass
-  - `vp test`: 7 test files, 67 tests — all pass
-  - `vp build`: dist/index.js (49.42 kB) — builds successfully with shebang
+    - `vp check`: 49 files formatted, 33 files linted — all pass
+    - `vp test`: 7 test files, 67 tests — all pass
+    - `vp build`: dist/index.js (49.42 kB) — builds successfully with shebang
 - `dist/index.js` starts with `#!/usr/bin/env node`
 
 **Remaining:** Nothing. All tasks complete, all quality checks pass.

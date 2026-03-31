@@ -41,12 +41,12 @@ pnpm add @logosdx/fetch
 ### Core API
 
 ```typescript
-import { FetchEngine } from "@logosdx/fetch";
+import { FetchEngine } from '@logosdx/fetch';
 
 const api = new FetchEngine({
-  baseUrl: "https://example.ghost.io/ghost/api",
-  defaultType: "json",
-  totalTimeout: 5000,
+    baseUrl: 'https://example.ghost.io/ghost/api',
+    defaultType: 'json',
+    totalTimeout: 5000,
 });
 
 // Methods - all return FetchPromise<T> → FetchResponse<T>
@@ -89,13 +89,13 @@ Properties: `state`, `config`, `headers`, `params`
 ### Error Handling
 
 ```typescript
-import { attempt } from "@logosdx/utils";
-const [response, err] = await attempt(() => api.get<User[]>("/users"));
+import { attempt } from '@logosdx/utils';
+const [response, err] = await attempt(() => api.get<User[]>('/users'));
 ```
 
 ### Global Instance
 
 ```typescript
-import fetch from "@logosdx/fetch";
+import fetch from '@logosdx/fetch';
 // Named exports: get, post, put, patch, del, head, options, request, headers, params, state, config, on, off
 ```

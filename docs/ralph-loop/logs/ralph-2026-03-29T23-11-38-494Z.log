@@ -237,3 +237,7 @@ vite v8.0.3 building client environment for production...
 [2026-03-30T00:00:04.165Z] [INFO] quality check: vp check
 [2026-03-30T00:00:04.816Z] [INFO] quality check: vp test
 [2026-03-30T00:00:05.851Z] [INFO] quality check: vp build
+[2026-03-30T00:00:06.146Z] [INFO] committed: ralph(iteration-10): add vite.config.ts with SSR entry to fix vp build and update package.json bin/main paths
+[2026-03-30T00:00:06.146Z] [OK] committed: add vite.config.ts with SSR entry to fix vp build and update package.json bin/main paths
+[2026-03-30T00:00:06.146Z] [INFO] completion sigil detected — task complete
+[2026-03-30T00:00:06.146Z] [OK] task complete!

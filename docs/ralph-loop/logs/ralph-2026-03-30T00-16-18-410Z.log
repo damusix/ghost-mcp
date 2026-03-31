@@ -1,0 +1,15 @@
+# ralph log — 2026-03-30T00:16:18.411Z
+# CWD: /home/ralph/ghost-mcp
+# command: run
+
+[2026-03-30T00:16:18.411Z] [INFO] log: docs/ralph-loop/logs/ralph-2026-03-30T00-16-18-410Z.log
+[2026-03-30T00:16:18.412Z] [INFO] discovering environment...
+[2026-03-30T00:16:19.016Z] [INFO] env: Debian GNU/Linux 12 (bookworm) 6.12.67-linuxkit (linux arm64) shell=unknown node=v24.13.0 pm=pnpm
+[2026-03-30T00:16:19.016Z] [INFO] tools: 48 available, 13 unavailable
+[2026-03-30T00:16:19.016Z] [OK] environment ready
+[2026-03-30T00:16:19.017Z] [INFO] loading config from docs/ralph-loop/ralph.config.yml
+[2026-03-30T00:16:19.021Z] [INFO] config: tool=claude max=50 anchor=c582130c0897
+[2026-03-30T00:16:19.032Z] [INFO] ── iteration 11 of 50 ──
+[2026-03-30T00:16:19.052Z] [INFO] prompt assembled: 32705 chars from /home/ralph/ghost-mcp/docs/ralph-loop/ralph-prompt.md
+[2026-03-30T00:16:19.053Z] [INFO] invoking claude...
+[2026-03-30T00:16:19.053Z] [INFO] tool output → docs/ralph-loop/logs/tool-1774829779053.log

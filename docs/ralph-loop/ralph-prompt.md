@@ -77,7 +77,7 @@ Read `docs/ralph-loop/evidence/` for comprehensive R&D on every Ghost API endpoi
 - [x] Create `.github/workflows/release.yml` — Release workflow. Triggers on push to `main`. Steps: checkout, setup Node (20), setup PNPM, `pnpm install --frozen-lockfile`, `vp build`. Then use `changesets/action` with `publish: pnpm changeset publish`, `title: "chore: version packages"`. Requires `NPM_TOKEN` secret for npm publish and `GITHUB_TOKEN` for creating the version PR.
 - [x] Create `.npmrc` with `//registry.npmjs.org/:_authToken=${NPM_TOKEN}` (for CI publish only — this file is safe to commit).
 - [x] Add `.changeset/` to git. Verify `pnpm changeset status` runs without error.
-  - `pnpm changeset status` fails locally because there is no `main` branch (only `master`). This will work correctly on GitHub where `main` exists as the default branch.
+    - `pnpm changeset status` fails locally because there is no `main` branch (only `master`). This will work correctly on GitHub where `main` exists as the default branch.
 
 ## Constraints
 

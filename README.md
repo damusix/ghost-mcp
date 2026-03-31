@@ -31,17 +31,17 @@ Add to your `claude_desktop_config.json`:
 
 ```json
 {
-  "mcpServers": {
-    "ghost": {
-      "command": "npx",
-      "args": ["@damusix/ghost-mcp"],
-      "env": {
-        "GHOST_URL": "https://my-blog.ghost.io",
-        "GHOST_ADMIN_API_KEY": "your-admin-api-key",
-        "GHOST_CONTENT_API_KEY": "your-content-api-key"
-      }
+    "mcpServers": {
+        "ghost": {
+            "command": "npx",
+            "args": ["@damusix/ghost-mcp"],
+            "env": {
+                "GHOST_URL": "https://my-blog.ghost.io",
+                "GHOST_ADMIN_API_KEY": "your-admin-api-key",
+                "GHOST_CONTENT_API_KEY": "your-content-api-key"
+            }
+        }
     }
-  }
 }
 ```
 
@@ -61,13 +61,13 @@ Execute Ghost API actions. Supports full CRUD on posts, pages, tags, members, ne
 
 ```json
 {
-  "api": "admin",
-  "action": "posts.add",
-  "payload": {
-    "title": "My New Post",
-    "status": "draft",
-    "lexical": "{\"root\":{\"children\":[{\"children\":[{\"text\":\"Hello world\"}],\"type\":\"paragraph\"}],\"type\":\"root\"}}"
-  }
+    "api": "admin",
+    "action": "posts.add",
+    "payload": {
+        "title": "My New Post",
+        "status": "draft",
+        "lexical": "{\"root\":{\"children\":[{\"children\":[{\"text\":\"Hello world\"}],\"type\":\"paragraph\"}],\"type\":\"root\"}}"
+    }
 }
 ```
 

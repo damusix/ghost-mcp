@@ -7,10 +7,10 @@
 Three methods:
 
 1. **Integration Token (JWT)** - Server-side. Admin API key generates short-lived JWTs.
-   - Header: `Authorization: Ghost {token}`
-   - JWT uses HS256 algorithm
-   - Payload: `iat`, `exp` (max 5 min), audience `/admin/`
-   - Key format: `{id}:{secret}` - the id becomes the JWT `kid`, secret is hex-encoded signing key
+    - Header: `Authorization: Ghost {token}`
+    - JWT uses HS256 algorithm
+    - Payload: `iat`, `exp` (max 5 min), audience `/admin/`
+    - Key format: `{id}:{secret}` - the id becomes the JWT `kid`, secret is hex-encoded signing key
 
 2. **Staff Access Token** - Personal tokens from user settings page
 3. **User Authentication** - Session-based with email/password + optional 2FA

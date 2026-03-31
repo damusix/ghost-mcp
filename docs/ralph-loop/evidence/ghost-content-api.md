@@ -126,16 +126,16 @@ filter=tag:-hash-internal+featured:true
 
 ```json
 {
-  "meta": {
-    "pagination": {
-      "page": 1,
-      "limit": 15,
-      "pages": 1,
-      "total": 1,
-      "next": null,
-      "prev": null
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "limit": 15,
+            "pages": 1,
+            "total": 1,
+            "next": null,
+            "prev": null
+        }
     }
-  }
 }
 ```
 

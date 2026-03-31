@@ -27,10 +27,10 @@ Why:
 - **Purpose**: Self-documenting action catalog
 - **Input**: `{}` (no args) returns all actions grouped by resource and API
 - **Input**: `{ action: string }` returns detailed help for that action including:
-  - Zod schema description with field types, optionality, defaults
-  - Example payload
-  - Example response
-  - Notes/caveats
+    - Zod schema description with field types, optionality, defaults
+    - Example payload
+    - Example response
+    - Notes/caveats
 - **Design**: Derived from Zod schemas at build time (like OpenAPI from Joi/Zod)
 
 ### Tool 3: `ghost_docs`
