@@ -21,6 +21,16 @@ export type UseGhostApiInput = z.infer<typeof useGhostApiSchema>;
 
 const PATH_PARAMS = ['id', 'slug', 'name'] as const;
 
+function getUsedPathParams(template: string): Set<string> {
+    const used = new Set<string>();
+    for (const param of PATH_PARAMS) {
+        if (template.includes(`{${param}}`)) {
+            used.add(param);
+        }
+    }
+    return used;
+}
+
 function buildPath(template: string, payload: Record<string, unknown>): string {
     let path = template;
     for (const param of PATH_PARAMS) {
@@ -32,10 +42,13 @@ function buildPath(template: string, payload: Record<string, unknown>): string {
     return path;
 }
 
-function extractQueryParams(payload: Record<string, unknown>): Record<string, string> {
+function extractQueryParams(
+    payload: Record<string, unknown>,
+    usedPathParams: Set<string>,
+): Record<string, string> {
     const params: Record<string, string> = {};
     for (const [key, value] of Object.entries(payload)) {
-        if (PATH_PARAMS.includes(key as (typeof PATH_PARAMS)[number])) {
+        if (usedPathParams.has(key)) {
             continue;
         }
         if (value !== undefined && value !== null) {
@@ -45,14 +58,13 @@ function extractQueryParams(payload: Record<string, unknown>): Record<string, st
     return params;
 }
 
-function extractBodyPayload(payload: Record<string, unknown>): Record<string, unknown> {
+function extractBodyPayload(
+    payload: Record<string, unknown>,
+    usedPathParams: Set<string>,
+): Record<string, unknown> {
     const body: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(payload)) {
-        if (PATH_PARAMS.includes(key as (typeof PATH_PARAMS)[number])) {
-            continue;
-        }
-        if (key === 'updated_at') {
-            body[key] = value;
+        if (usedPathParams.has(key)) {
             continue;
         }
         if (value !== undefined) {
@@ -94,6 +106,7 @@ export async function handleUseGhostApi(input: UseGhostApiInput, mode: string): 
 
     const validPayload = validation.data as Record<string, unknown>;
     const engine = api === 'admin' ? adminApi : contentApi;
+    const usedPathParams = getUsedPathParams(actionDef.path);
     const path = buildPath(actionDef.path, validPayload);
 
     // Handle special cases: image/theme upload
@@ -102,7 +115,7 @@ export async function handleUseGhostApi(input: UseGhostApiInput, mode: string): 
     }
 
     if (actionDef.method === 'GET') {
-        const queryParams = extractQueryParams(validPayload);
+        const queryParams = extractQueryParams(validPayload, usedPathParams);
         const [response, err] = await attempt(async () =>
             engine.get(path, { params: queryParams }),
         );
@@ -122,7 +135,7 @@ export async function handleUseGhostApi(input: UseGhostApiInput, mode: string): 
 
     // POST or PUT — build body wrapped in resource key
     const resourceKey = actionDef.name.split('.')[0];
-    const body = extractBodyPayload(validPayload);
+    const body = extractBodyPayload(validPayload, usedPathParams);
     const wrappedBody = { [resourceKey]: [body] };
 
     if (actionDef.method === 'POST') {

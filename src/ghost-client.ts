@@ -22,6 +22,7 @@ export const adminApi = new FetchEngine({
     defaultType: 'json',
     headers: {
         'Accept-Version': GHOST_API_VERSION,
+        'Content-Type': 'application/json',
         Authorization: `Ghost ${generateAdminToken()}`,
     },
 });
@@ -35,6 +36,7 @@ export const contentApi = new FetchEngine({
     defaultType: 'json',
     headers: {
         'Accept-Version': GHOST_API_VERSION,
+        'Content-Type': 'application/json',
     },
     params: {
         key: GHOST_CONTENT_API_KEY,

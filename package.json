@@ -47,6 +47,7 @@
         "@changesets/changelog-github": "^0.5.1",
         "@changesets/cli": "^2.29.4",
         "@types/jsonwebtoken": "^9.0.9",
+        "tsx": "^4.21.0",
         "typescript": "^5.8.2",
         "vite-plus": "^0.1.15-alpha.5",
         "vitest": "^3.1.1"
