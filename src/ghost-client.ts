@@ -22,13 +22,12 @@ export const adminApi = new FetchEngine({
     defaultType: 'json',
     headers: {
         'Accept-Version': GHOST_API_VERSION,
+        Authorization: `Ghost ${generateAdminToken()}`,
     },
-    onBeforeReq: async (opts) => {
-        if (opts.headers) {
-            (opts.headers as Record<string, string>)['Authorization'] =
-                `Ghost ${generateAdminToken()}`;
-        }
-    },
+});
+
+adminApi.hooks.add('beforeRequest', (url, opts) => {
+    opts.headers.Authorization = `Ghost ${generateAdminToken()}`;
 });
 
 export const contentApi = new FetchEngine({

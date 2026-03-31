@@ -11,7 +11,7 @@ pnpm add @damusix/ghost-mcp
 Or run directly:
 
 ```bash
-npx @damusix/ghost-mcp
+npx --package=@damusix/ghost-mcp ghost-mcp
 ```
 
 ## Configuration

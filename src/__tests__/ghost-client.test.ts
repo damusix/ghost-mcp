@@ -14,9 +14,12 @@ vi.stubEnv('GHOST_CONTENT_API_KEY', TEST_CONTENT_KEY);
 vi.mock('@logosdx/fetch', () => {
     class MockFetchEngine {
         config: Record<string, unknown>;
+        headers = { set: vi.fn() };
+        hooks = { add: vi.fn() };
         constructor(config: Record<string, unknown>) {
             this.config = config;
         }
+        on = vi.fn();
     }
     return { FetchEngine: MockFetchEngine };
 });
