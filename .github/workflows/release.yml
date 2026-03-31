@@ -6,12 +6,16 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+    id-token: write
+    contents: write
+    pull-requests: write
+
 jobs:
     release:
         runs-on: ubuntu-latest
-        permissions:
-            contents: write
-            pull-requests: write
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         steps:
             - uses: actions/checkout@v4
 
@@ -21,16 +25,28 @@ jobs:
 
             - uses: voidzero-dev/setup-vp@v1
               with:
-                  node-version: '22'
+                  node-version: '24'
                   cache: true
 
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '24'
+                  registry-url: 'https://registry.npmjs.org'
+
+            # Workaround: setup-node injects a fake NODE_AUTH_TOKEN placeholder
+            # that prevents npm OIDC trusted publishing from activating.
+            # See: https://github.com/actions/setup-node/issues/1440
+            - name: Enable OIDC publishing
+              run: npm config delete //registry.npmjs.org/:_authToken
+
+            - run: pnpm install --frozen-lockfile
             - run: vp pack
 
             - name: Create Release Pull Request or Publish
               uses: changesets/action@v1
               with:
-                  publish: pnpm changeset publish
+                  publish: pnpm exec changeset publish
                   title: 'chore: version packages'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  NODE_AUTH_TOKEN: ''
