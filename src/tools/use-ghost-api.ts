@@ -1,9 +1,17 @@
 import { z } from 'zod';
 import { attempt } from '@logosdx/utils';
 import { get as fetchGet } from '@logosdx/fetch';
+import mimeDb from 'mime-db';
 import { adminApi, contentApi } from '../ghost-client.js';
 import { getAction } from '../actions/registry.js';
 import type { ApiType } from '../actions/registry.js';
+
+const extToMime: Record<string, string> = {};
+for (const [mime, meta] of Object.entries(mimeDb)) {
+    for (const ext of (meta as any).extensions ?? []) {
+        extToMime[`.${ext}`] = mime;
+    }
+}
 
 export const useGhostApiSchema = z.object({
     api: z
@@ -191,8 +199,13 @@ async function handleFileUpload(
     }
 
     // Build multipart form
+    const ext = filename.includes('.')
+        ? filename.slice(filename.lastIndexOf('.')).toLowerCase()
+        : '';
+    const mimeType = extToMime[ext] || 'application/octet-stream';
+
     const formData = new FormData();
-    const blob = new Blob([new Uint8Array(fileBuffer)]);
+    const blob = new Blob([new Uint8Array(fileBuffer)], { type: mimeType });
     formData.append('file', blob, filename);
     if (ref) {
         formData.append('ref', ref);
@@ -200,7 +213,9 @@ async function handleFileUpload(
 
     const [response, err] = await attempt(async () =>
         adminApi.post(path, formData, {
-            headers: { 'Content-Type': undefined as unknown as string },
+            onBeforeReq: (opts) => {
+                delete opts.headers!['Content-Type'];
+            },
         }),
     );
     if (err) {
