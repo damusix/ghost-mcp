@@ -9,12 +9,14 @@ vi.mock('../../ghost-client.js', () => ({
         post: vi.fn(),
         put: vi.fn(),
         delete: vi.fn(),
+        invalidatePath: vi.fn(),
     },
     contentApi: {
         get: vi.fn(),
         post: vi.fn(),
         put: vi.fn(),
         delete: vi.fn(),
+        invalidatePath: vi.fn(),
     },
 }));
 

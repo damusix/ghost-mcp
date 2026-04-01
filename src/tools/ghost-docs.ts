@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { attempt } from '@logosdx/utils';
+import { docsApi } from '../ghost-client.js';
 
 export const ghostDocsSchema = z.object({
     all: z.boolean().optional().describe('Return the full Ghost documentation (llms.txt)'),
@@ -12,35 +13,12 @@ export const ghostDocsSchema = z.object({
 
 export type GhostDocsInput = z.infer<typeof ghostDocsSchema>;
 
-const GHOST_LLMS_TXT_URL = 'https://docs.ghost.org/llms.txt';
-const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
-
-let cachedContent: string | null = null;
-let cacheTimestamp = 0;
-
-// Exported for testing
-export function clearCache(): void {
-    cachedContent = null;
-    cacheTimestamp = 0;
-}
-
 async function fetchDocs(): Promise<string> {
-    const now = Date.now();
-    if (cachedContent && now - cacheTimestamp < CACHE_TTL) {
-        return cachedContent;
-    }
-
-    const [response, err] = await attempt(async () => fetch(GHOST_LLMS_TXT_URL));
+    const [response, err] = await attempt(async () => docsApi.get('/llms.txt'));
     if (err) {
         throw new Error(`Failed to fetch Ghost docs: ${err.message}`);
     }
-    if (!response!.ok) {
-        throw new Error(`Failed to fetch Ghost docs: ${response!.status}`);
-    }
-
-    cachedContent = await response!.text();
-    cacheTimestamp = now;
-    return cachedContent;
+    return response!.data as string;
 }
 
 export async function handleGhostDocs(input: GhostDocsInput): Promise<string> {

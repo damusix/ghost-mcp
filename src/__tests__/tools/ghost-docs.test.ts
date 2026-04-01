@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { handleGhostDocs, clearCache } from '../../tools/ghost-docs.js';
+import { handleGhostDocs } from '../../tools/ghost-docs.js';
+import { docsApi } from '../../ghost-client.js';
 
 const MOCK_DOCS = `# Ghost Documentation
 This is the Ghost CMS documentation.
@@ -11,18 +12,29 @@ Manage your members and subscriptions.
 Listen for events in Ghost.
 `;
 
-// Mock global fetch
-const mockFetch = vi.fn();
-vi.stubGlobal('fetch', mockFetch);
+// Mock ghost-client
+vi.mock('../../ghost-client.js', () => ({
+    docsApi: {
+        get: vi.fn(),
+    },
+}));
+
+// Mock @logosdx/utils
+vi.mock('@logosdx/utils', () => ({
+    attempt: vi.fn(async (fn: () => Promise<unknown>) => {
+        try {
+            const result = await fn();
+            return [result, null];
+        } catch (error) {
+            return [null, error];
+        }
+    }),
+}));
 
 describe('ghost-docs handler', () => {
     beforeEach(() => {
         vi.clearAllMocks();
-        clearCache();
-        mockFetch.mockResolvedValue({
-            ok: true,
-            text: async () => MOCK_DOCS,
-        });
+        vi.mocked(docsApi.get).mockResolvedValue({ data: MOCK_DOCS } as any);
     });
 
     it('returns usage hint when no params provided', async () => {
@@ -33,7 +45,7 @@ describe('ghost-docs handler', () => {
     it('returns full content with all: true', async () => {
         const result = await handleGhostDocs({ all: true });
         expect(result).toBe(MOCK_DOCS);
-        expect(mockFetch).toHaveBeenCalledTimes(1);
+        expect(docsApi.get).toHaveBeenCalledWith('/llms.txt');
     });
 
     it('filters lines case-insensitively with search', async () => {
@@ -56,21 +68,8 @@ describe('ghost-docs handler', () => {
         expect(result).toContain('Webhooks');
     });
 
-    it('caches docs and does not re-fetch within TTL', async () => {
-        await handleGhostDocs({ all: true });
-        await handleGhostDocs({ all: true });
-        expect(mockFetch).toHaveBeenCalledTimes(1);
-    });
-
-    it('re-fetches after cache is cleared', async () => {
-        await handleGhostDocs({ all: true });
-        clearCache();
-        await handleGhostDocs({ all: true });
-        expect(mockFetch).toHaveBeenCalledTimes(2);
-    });
-
     it('handles fetch errors gracefully', async () => {
-        mockFetch.mockRejectedValue(new Error('Network error'));
+        vi.mocked(docsApi.get).mockRejectedValue(new Error('Network error'));
         const result = await handleGhostDocs({ all: true });
         expect(result).toContain('Error');
     });

@@ -21,7 +21,10 @@ vi.mock('@logosdx/fetch', () => {
         }
         on = vi.fn();
     }
-    return { FetchEngine: MockFetchEngine };
+    return {
+        FetchEngine: MockFetchEngine,
+        config: { set: vi.fn() },
+    };
 });
 
 // Mock jsonwebtoken

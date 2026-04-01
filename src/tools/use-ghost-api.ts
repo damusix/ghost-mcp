@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { attempt } from '@logosdx/utils';
+import { get as fetchGet } from '@logosdx/fetch';
 import { adminApi, contentApi } from '../ghost-client.js';
 import { getAction } from '../actions/registry.js';
 import type { ApiType } from '../actions/registry.js';
@@ -130,6 +131,8 @@ export async function handleUseGhostApi(input: UseGhostApiInput, mode: string): 
         if (err) {
             return JSON.stringify({ error: err.message });
         }
+        const resourcePrefix = `/${actionDef.name.split('.')[0]}`;
+        await engine.invalidatePath(resourcePrefix);
         return JSON.stringify(response ?? { success: true });
     }
 
@@ -151,6 +154,8 @@ export async function handleUseGhostApi(input: UseGhostApiInput, mode: string): 
         if (err) {
             return JSON.stringify({ error: err.message });
         }
+        const resourcePrefix = `/${actionDef.name.split('.')[0]}`;
+        await engine.invalidatePath(resourcePrefix);
         return JSON.stringify(response);
     }
 
@@ -170,16 +175,11 @@ async function handleFileUpload(
     let filename: string;
 
     if (fileInput.startsWith('http://') || fileInput.startsWith('https://')) {
-        const [response, err] = await attempt(async () => fetch(fileInput));
+        const [response, err] = await attempt(async () => fetchGet(fileInput).arrayBuffer());
         if (err) {
             return JSON.stringify({ error: `Failed to download file: ${err.message}` });
         }
-        if (!response!.ok) {
-            return JSON.stringify({
-                error: `Failed to download file: ${response!.status} ${response!.statusText}`,
-            });
-        }
-        fileBuffer = Buffer.from(await response!.arrayBuffer());
+        fileBuffer = Buffer.from(response!.data);
         const urlPath = new URL(fileInput).pathname;
         filename =
             urlPath.split('/').pop() ||
