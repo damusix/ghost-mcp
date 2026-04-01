@@ -1,5 +1,11 @@
 # @damusix/ghost-mcp
 
+## 0.2.1
+
+### Patch Changes
+
+- [`3a26571`](https://github.com/damusix/ghost-mcp/commit/3a2657149e63fa16f569cc307650b3a8335c2d38) - Fix image/theme uploads returning 422 by setting proper MIME types via mime-db and using per-request `onBeforeReq` to remove Content-Type header so the multipart boundary is auto-generated.
+
 ## 0.2.0
 
 ### Minor Changes
