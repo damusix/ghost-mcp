@@ -1,5 +1,11 @@
 # @damusix/ghost-mcp
 
+## 0.3.0
+
+### Minor Changes
+
+- [`3974029`](https://github.com/damusix/ghost-mcp/commit/3974029a712ea78aebe7971cf266429cfdf28a4e) - Add missing fields to admin API schemas (newsletter design fields, post slug/email_only/email_segment, page slug, tier trial_days, offer redemption_type) and remove invalid fields (offers.edit non-editable fields, members expertise). Enhance ghost_api_help to display enum values, nested object structure, array item types, and union variants.
+
 ## 0.2.1
 
 ### Patch Changes
