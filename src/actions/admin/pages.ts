@@ -63,6 +63,7 @@ const pageWriteFields = {
     feature_image_alt: z.string().optional().describe('Feature image alt text'),
     feature_image_caption: z.string().optional().describe('Feature image caption (HTML)'),
     custom_template: z.string().optional().describe('Custom template'),
+    slug: z.string().optional().describe('Custom URL slug for the page'),
 };
 
 const addSchema = z.object({

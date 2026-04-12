@@ -34,14 +34,15 @@ const addSchema = z.object({
     tier: z
         .object({ id: z.string().describe('Tier ID') })
         .describe('Tier this offer applies to (required)'),
+    redemption_type: z
+        .enum(['signup', 'retention'])
+        .optional()
+        .describe('Whether the offer is for new signups or existing member retention'),
 });
 
 const editSchema = z.object({
     id: z.string().describe('Offer ID (required)'),
     name: z.string().optional().describe('Internal name'),
-    code: z.string().optional().describe('Unique code for the offer URL'),
-    display_title: z.string().optional().describe('Title shown to users'),
-    display_description: z.string().optional().describe('Description shown to users'),
 });
 
 export const adminOfferActions: ActionDefinition[] = [

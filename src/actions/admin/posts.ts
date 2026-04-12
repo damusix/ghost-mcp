@@ -71,6 +71,12 @@ const postWriteFields = {
         .string()
         .optional()
         .describe('Custom email subject when sending as newsletter'),
+    slug: z.string().optional().describe('Custom URL slug for the post'),
+    email_only: z.boolean().optional().describe('Whether the post is email-only (not published to web)'),
+    email_segment: z
+        .string()
+        .optional()
+        .describe("NQL filter for email recipient segment (e.g. 'status:free', 'status:-free')"),
 };
 
 const addSchema = z.object({

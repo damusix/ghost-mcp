@@ -8,6 +8,11 @@ const browseParams = z.object({
         .describe('Number of results per page'),
     page: z.number().optional().describe('Page number'),
     order: z.string().optional().describe('Sort order'),
+    filter: z.string().optional().describe('NQL filter expression'),
+    include: z
+        .string()
+        .optional()
+        .describe("Related data to include (e.g. 'count.posts,count.members,count.active_members')"),
 });
 
 const readParams = z.object({
@@ -35,6 +40,34 @@ const newsletterWriteFields = {
     body_font_category: z.enum(['serif', 'sans_serif']).optional().describe('Body font category'),
     footer_content: z.string().optional().describe('Footer content (HTML)'),
     show_badge: z.boolean().optional().describe('Show Ghost badge in footer'),
+    feedback_enabled: z.boolean().optional().describe('Enable email feedback/reactions'),
+    show_excerpt: z.boolean().optional().describe('Show post excerpt in emails'),
+    show_post_title_section: z.boolean().optional().describe('Show post title section'),
+    show_comment_cta: z.boolean().optional().describe('Show comment call-to-action'),
+    show_subscription_details: z.boolean().optional().describe('Show subscription details'),
+    show_latest_posts: z.boolean().optional().describe('Show latest posts section'),
+    show_share_button: z.boolean().optional().describe('Show share button'),
+    background_color: z.string().optional().describe("Background color (e.g. 'light', 'dark', or hex)"),
+    post_title_color: z.string().nullable().optional().describe('Post title color (hex)'),
+    button_corners: z
+        .enum(['square', 'rounded', 'pill'])
+        .optional()
+        .describe('Button corner style'),
+    button_style: z.enum(['fill', 'outline']).optional().describe('Button style'),
+    title_font_weight: z
+        .enum(['normal', 'medium', 'semibold', 'bold'])
+        .optional()
+        .describe('Title font weight'),
+    link_style: z.enum(['underline', 'regular', 'bold']).optional().describe('Link style in emails'),
+    image_corners: z.enum(['square', 'rounded']).optional().describe('Image corner style'),
+    header_background_color: z
+        .string()
+        .optional()
+        .describe("Header background color (e.g. 'transparent', hex, 'accent')"),
+    section_title_color: z.string().nullable().optional().describe('Section title color (hex)'),
+    divider_color: z.string().nullable().optional().describe('Divider color (hex)'),
+    button_color: z.string().optional().describe("Button color (e.g. 'accent', hex)"),
+    link_color: z.string().optional().describe("Link color (e.g. 'accent', hex)"),
 };
 
 const addSchema = z.object({

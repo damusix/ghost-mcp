@@ -1,0 +1,53 @@
+# Ghost MCP — graphify corpus filter (project root)
+# Patterns are relative to the project root (ghost-mcp/)
+
+# ── Graphify output (never index its own cache) ───────────────────────────────
+graphify-out
+
+# ── Node dependencies and build artifacts ────────────────────────────────────
+node_modules
+dist
+.next
+build
+*.tsbuildinfo
+pnpm-lock.yaml
+
+# ── Ghost source: skip large test suites ────────────────────────────────────
+raw/Ghost/ghost/core/test
+raw/Ghost/ghost/admin/tests
+
+# ── Ghost source: skip migrations and docker ────────────────────────────────
+raw/Ghost/ghost/core/migrations
+raw/Ghost/docker
+raw/Ghost/scripts
+
+# ── Ghost source: skip non-API packages ─────────────────────────────────────
+raw/Ghost/ghost/i18n
+raw/Ghost/ghost/parse-email-address
+
+# ── Ghost: Skip generated/static content ────────────────────────────────────
+raw/Ghost/**/*.lock
+raw/Ghost/**/*.log
+raw/Ghost/content
+raw/Ghost/.cache
+
+# ── Binary files and assets ─────────────────────────────────────────────────
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ttf
+*.woff
+*.mp3
+*.mp4
+*.zip
+
+# ── Config noise ────────────────────────────────────────────────────────────
+compose.dev*.yaml
+Dockerfile.production
+nx.json
+sonar-project.properties
+.env
+.env.local
+

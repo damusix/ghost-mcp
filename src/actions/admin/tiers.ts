@@ -32,6 +32,7 @@ const tierWriteFields = {
     yearly_price: z.number().optional().describe('Yearly price in smallest currency unit'),
     currency: z.string().optional().describe('Three-letter ISO currency code (e.g. "usd")'),
     benefits: z.array(z.string()).optional().describe('List of benefits for this tier'),
+    trial_days: z.number().optional().describe('Number of free trial days for new subscribers'),
 };
 
 const addSchema = z.object({
