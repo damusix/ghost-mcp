@@ -48,4 +48,33 @@ describe('ghost-api-help handler', () => {
         const result = handleGhostApiHelp({ action: 'posts.browse' });
         expect(result).toContain('Example Payload');
     });
+
+    it('shows enum values for enum fields', () => {
+        const result = handleGhostApiHelp({ action: 'posts.add' });
+        expect(result).toContain('`published`');
+        expect(result).toContain('`draft`');
+        expect(result).toContain('`scheduled`');
+    });
+
+    it('shows nested object fields', () => {
+        const result = handleGhostApiHelp({ action: 'posts.add' });
+        expect(result).toContain('object: { id: string }');
+    });
+
+    it('shows array item structure', () => {
+        const result = handleGhostApiHelp({ action: 'posts.add' });
+        expect(result).toContain('array of [');
+    });
+
+    it('shows union types with literals', () => {
+        const result = handleGhostApiHelp({ action: 'posts.browse' });
+        expect(result).toContain('number | `all`');
+    });
+
+    it('shows webhook event enum values', () => {
+        const result = handleGhostApiHelp({ action: 'webhooks.add' });
+        expect(result).toContain('`site.changed`');
+        expect(result).toContain('`post.published`');
+        expect(result).toContain('`member.deleted`');
+    });
 });

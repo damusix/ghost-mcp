@@ -63,6 +63,55 @@ export function listActions(api?: ApiType): ActionDefinition[] {
     return actions;
 }
 
+function unwrapZodType(field: z.ZodType): z.ZodType {
+    if (field instanceof z.ZodOptional || field instanceof z.ZodNullable) {
+        return unwrapZodType((field as z.ZodOptional<z.ZodType> | z.ZodNullable<z.ZodType>)._def.innerType);
+    }
+    if (field instanceof z.ZodDefault) {
+        return unwrapZodType((field as z.ZodDefault<z.ZodType>)._def.innerType);
+    }
+    return field;
+}
+
+function describeZodType(field: z.ZodType): string {
+    const inner = unwrapZodType(field);
+
+    if (inner instanceof z.ZodEnum) {
+        const values = (inner._def as z.ZodEnumDef).values as string[];
+        return `values: ${values.map((v) => `\`${v}\``).join(', ')}`;
+    }
+
+    if (inner instanceof z.ZodObject) {
+        const shape = inner.shape as Record<string, z.ZodType>;
+        const fields = Object.entries(shape).map(([k, v]) => {
+            const t = describeZodType(v);
+            return t ? `${k}${t.startsWith('values:') ? ` (${t})` : `: ${t}`}` : k;
+        });
+        return `object: { ${fields.join(', ')} }`;
+    }
+
+    if (inner instanceof z.ZodArray) {
+        const itemType = describeZodType((inner._def as z.ZodArrayDef).type);
+        return itemType ? `array of [${itemType}]` : 'array';
+    }
+
+    if (inner instanceof z.ZodUnion) {
+        const options = (inner._def as z.ZodUnionDef).options as z.ZodType[];
+        const parts = options.map((o) => describeZodType(o)).filter(Boolean);
+        return parts.length > 0 ? parts.join(' | ') : '';
+    }
+
+    if (inner instanceof z.ZodLiteral) {
+        return `\`${String((inner._def as z.ZodLiteralDef).value)}\``;
+    }
+
+    if (inner instanceof z.ZodString) return 'string';
+    if (inner instanceof z.ZodNumber) return 'number';
+    if (inner instanceof z.ZodBoolean) return 'boolean';
+
+    return '';
+}
+
 export function getActionHelp(name: string, api?: ApiType): string | undefined {
     const action = getAction(name, api);
     if (!action) {
@@ -88,7 +137,9 @@ export function getActionHelp(name: string, api?: ApiType): string | undefined {
         for (const [key, field] of Object.entries(shape)) {
             const isOptional = field.isOptional();
             const desc = field.description || '';
-            lines.push(`- **${key}**${isOptional ? ' (optional)' : ' (required)'}: ${desc}`);
+            const typeInfo = describeZodType(field);
+            const suffix = typeInfo ? ` — ${typeInfo}` : '';
+            lines.push(`- **${key}**${isOptional ? ' (optional)' : ' (required)'}: ${desc}${suffix}`);
         }
         lines.push('');
     }
