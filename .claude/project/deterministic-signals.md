@@ -1,5 +1,5 @@
 ---
-generated_at: 2026-06-20T21:27:42Z
+generated_at: 2026-06-20T21:51:28Z
 atomic_version: 5.5.0
 ---
 # Deterministic signals
@@ -15,9 +15,15 @@ atomic_version: 5.5.0
 │   └── workflows/ (2)
 │       ├── ci.yml (6579880, 27L, 478ch, 478B)
 │       └── release.yml (64c17a5, 52L, 1509ch, 1509B)
-├── bin/ (1)
+├── .noorm/ (2)
+│   ├── dev.env (e7bc70d, 14L, 521ch, 521B)
+│   └── settings.yml (d209c01, 39L, 1360ch, 1364B)
+├── bin/ (2)
+│   ├── ghost-keys.sh (b525273, 58L, 1984ch, 1984B)
 │   └── ghost-mcp.js (d53fafb, 2L, 48ch, 48B)
-├── docs/ (3)
+├── changes/ (1)
+│   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
+├── docs/ (4)
 │   ├── design/ (1)
 │   │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
 │   ├── ralph-loop/ (6)
@@ -46,8 +52,11 @@ atomic_version: 5.5.0
 │   │   ├── ralph-prompt.md (00b12d5, 124L, 17044ch, 17156B)
 │   │   ├── ralph-status.md (01bf79e, 140L, 7768ch, 7840B)
 │   │   └── ralph.config.yml (179a478, 10L, 226ch, 226B)
-│   └── spec/ (1)
-│       └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
+│   ├── spec/ (1)
+│   │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
+│   └── experimentation.md (9e1c5a9, 113L, 3788ch, 3788B)
+├── sql/ (1)
+│   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
 ├── src/ (6)
 │   ├── __tests__/ (4)
 │   │   ├── actions/ (2)
@@ -88,14 +97,15 @@ atomic_version: 5.5.0
 │   ├── ghost-client.ts (d8cd95e, 120L, 3285ch, 3287B)
 │   ├── index.ts (1c82f5a, 53L, 1872ch, 1876B)
 │   └── types.ts (379e474, 256L, 6630ch, 6630B)
-├── .gitignore (6a7265c, 10L, 156ch, 156B)
+├── .gitignore (3071466, 12L, 175ch, 175B)
 ├── .graphifyignore (0351de5, 53L, 1229ch, 1897B)
 ├── .oxlintrc.json (ef67daa, 77L, 2721ch, 2721B)
 ├── .signalsignore (b0287a5, 17L, 662ch, 674B)
 ├── CHANGELOG.md (292e28e, 49L, 2749ch, 2757B)
 ├── CLAUDE.md (eec34c2, 17L, 576ch, 576B)
 ├── LICENSE (42eaf96, 21L, 1070ch, 1070B)
-├── README.md (f731884, 114L, 2980ch, 2982B)
+├── README.md (330b66c, 125L, 3287ch, 3289B)
+├── docker-compose.yml (11b22d1, 60L, 1849ch, 1851B)
 ├── package.json (0dbaa29, 56L, 1419ch, 1421B)
 ├── pnpm-lock.yaml (9648f9d, 3719L, 117910ch, 117910B)
 ├── tsconfig.json (e1e0c50, 17L, 448ch, 448B)
@@ -107,8 +117,9 @@ atomic_version: 5.5.0
 
 ## Languages
 
-- YAML: 3808 LOC (47%), 4 files (7%)
-- TypeScript: 2998 LOC (37%), 33 files (61%)
-- Markdown: 1041 LOC (12%), 11 files (20%)
-- JSON: 176 LOC (2%), 5 files (9%)
+- YAML: 3907 LOC (47%), 6 files (10%)
+- TypeScript: 2998 LOC (36%), 33 files (56%)
+- Markdown: 1165 LOC (14%), 12 files (20%)
+- JSON: 176 LOC (2%), 5 files (8%)
+- Shell: 58 LOC (0%), 1 file (1%)
 - JavaScript: 2 LOC (0%), 1 file (1%)

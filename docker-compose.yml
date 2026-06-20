@@ -1,0 +1,60 @@
+# Local experimentation stack for ghost-mcp.
+#
+# Brings up a real Ghost 6 instance backed by MySQL 8 so the MCP server can be
+# exercised against a live Admin/Content API, and so noorm can inspect Ghost's
+# actual database schema (see .noorm/ and docs/experimentation.md).
+#
+# Credentials here are throwaway local-dev values — never reused anywhere real.
+#
+#   docker compose up -d          # start
+#   docker compose logs -f ghost  # watch first-boot migrations
+#   docker compose down           # stop (keeps volumes)
+#   docker compose down -v        # stop and wipe data
+#
+# Override host ports without editing this file:
+#   GHOST_PORT=3001 MYSQL_PORT=3307 docker compose up -d
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ghost-mcp-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ghost
+      MYSQL_DATABASE: ghost
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - ghost-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pghost"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  ghost:
+    image: ghost:6-alpine
+    container_name: ghost-mcp-ghost
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      # Ghost reads double-underscore env vars as nested config keys.
+      NODE_ENV: development
+      url: http://localhost:${GHOST_PORT:-2368}
+      database__client: mysql
+      database__connection__host: mysql
+      database__connection__port: "3306"
+      database__connection__user: root
+      database__connection__password: ghost
+      database__connection__database: ghost
+    ports:
+      - "${GHOST_PORT:-2368}:2368"
+    volumes:
+      - ghost-content:/var/lib/ghost/content
+
+volumes:
+  ghost-mysql:
+  ghost-content:

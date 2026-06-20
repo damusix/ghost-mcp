@@ -8,3 +8,5 @@ graphify-out
 .worktrees/
 .claude/project/.deterministic-signals.prev.md
 .claude/.atomic-index/
+.noorm/state/
+.env

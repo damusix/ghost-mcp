@@ -1,0 +1,39 @@
+# noorm project settings for inspecting the dockerized Ghost database.
+#
+# This project does not own Ghost's schema — noorm is used here purely to
+# explore and query the live schema that Ghost creates on first boot, so the
+# MCP server can be built against the real data model.
+#
+# Connect in env-only mode (no stored config, no TTY needed):
+#   set -a; source .noorm/dev.env; set +a
+#   noorm db explore
+#   noorm sql "SELECT name FROM information_schema.tables WHERE table_schema='ghost'"
+#
+# The `dev` stage below documents the connection shape and is the template for
+# any stored config you create later via `noorm init` / `noorm ui`.
+
+paths:
+    sql: ./sql
+    changes: ./changes
+
+stages:
+    dev:
+        description: "Dockerized Ghost MySQL (docker-compose) — inspect/query"
+        locked: false
+        defaults:
+            dialect: mysql
+            host: 127.0.0.1
+            port: 3306
+            database: ghost
+            user: root
+            isTest: false
+            # Guard the Ghost schema against accidental teardown/truncate when
+            # a stored config is created from this stage.
+            protected: true
+
+# Quiet by default so `--json` output is clean for piping into jq.
+# Bump to `info` (or set NOORM_DEBUG=1) when debugging a connection.
+logging:
+    enabled: false
+    level: silent
+    file: .noorm/state/noorm.log

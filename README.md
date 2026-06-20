@@ -109,6 +109,17 @@ Search Ghost documentation via `docs.ghost.org/llms.txt`.
 - **Admin mode** (default): Full access to all Ghost Admin API and Content API actions. Requires `GHOST_ADMIN_API_KEY`.
 - **Content mode**: Read-only access to Content API actions only. Requires `GHOST_CONTENT_API_KEY`. Admin actions are rejected with a clear error.
 
+## Development
+
+Spin up a throwaway Ghost 6 + MySQL 8 stack to exercise the server against a
+live API, and inspect Ghost's real schema with noorm. See
+[docs/experimentation.md](docs/experimentation.md).
+
+```bash
+docker compose up -d
+bin/ghost-keys.sh --write   # writes .env pointed at the local Ghost
+```
+
 ## License
 
 MIT
