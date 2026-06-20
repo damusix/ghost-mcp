@@ -4,3 +4,7 @@ dist
 tmp
 raw
 graphify-out
+.claude/.scratchpad/
+.worktrees/
+.claude/project/.deterministic-signals.prev.md
+.claude/.atomic-index/
