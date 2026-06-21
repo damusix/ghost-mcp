@@ -76,6 +76,42 @@
       }
     ]
   },
+  "quote": {
+    "type": "extended-quote",
+    "version": 1,
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "children": [
+      {
+        "type": "extended-text",
+        "version": 1,
+        "text": "A blockquote.",
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "detail": 0
+      }
+    ]
+  },
+  "aside": {
+    "type": "aside",
+    "version": 1,
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "children": [
+      {
+        "type": "extended-text",
+        "version": 1,
+        "text": "An aside / pull quote.",
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "detail": 0
+      }
+    ]
+  },
   "image": {
     "type": "image",
     "version": 1,

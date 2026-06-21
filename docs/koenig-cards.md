@@ -5,11 +5,14 @@ Every Ghost 6 post stores its body as a **lexical** JSON tree in the `lexical`
 field. Each Koenig editor feature is a node in that tree. To create content via
 the Admin API, POST a post with a `lexical` string — Ghost renders the HTML.
 
-Every payload below is the **canonical form Ghost itself stored** after a
-round-trip through the local Admin API (see `docs/koenig-cards.json` for the
-machine-readable set). All 23 node types were verified: POST accepted (201),
-stored, and rendered. Field names map 1:1 to the renderers in
-`ghost/core/core/server/services/koenig/node-renderers/`.
+Each card section has two parts: the **canonical payload** (the exact form Ghost
+stored after a round-trip through the local Admin API — POST accepted 201, stored,
+rendered) and the **full field/default table** extracted from the
+`@tryghost/kg-default-nodes` source (`docs/koenig-node-specs.json`). The payload
+shows a working example; the table shows every available field and its default.
+
+Machine-readable companions: `docs/koenig-cards.json` (example payloads) and
+`docs/koenig-node-specs.json` (full schema).
 
 
 ## Document envelope
@@ -35,31 +38,33 @@ Pass the lexical tree as a **JSON string**, not a nested object.
 ## Card index
 
 
-| Card | `type` | ver | Renders | Group |
-|------|--------|-----|---------|-------|
-| paragraph | `paragraph` | 1 | web+email | Text |
-| heading | `extended-heading` | 1 | web+email | Text |
-| image | `image` | 1 | web+email | Media |
-| gallery | `gallery` | 1 | web+email | Media |
-| video | `video` | 1 | web+email | Media |
-| audio | `audio` | 1 | web+email | Media |
-| file | `file` | 1 | web+email | Media |
-| bookmark | `bookmark` | 1 | web+email | Embed |
-| embed | `embed` | 1 | web+email | Embed |
-| html | `html` | 1 | web+email | Embed |
-| markdown | `markdown` | 1 | web+email | Embed |
-| codeblock | `codeblock` | 1 | web+email | Embed |
-| callout | `callout` | 1 | web+email | Layout |
-| toggle | `toggle` | 1 | web only | Layout |
-| button | `button` | 1 | web+email | Layout |
-| header | `header` | 2 | web+email | Layout |
-| call-to-action | `call-to-action` | 1 | web+email | Layout |
-| signup | `signup` | 1 | web only | Membership |
-| product | `product` | 1 | web+email | Layout |
-| horizontalrule | `horizontalrule` | 1 | web+email | Divider |
-| paywall | `paywall` | 1 | web+email | Membership |
-| email | `email` | 1 | email only | Email-only |
-| email-cta | `email-cta` | 1 | email only | Email-only |
+| Card | `type` | ver | Renders | `visibility` | Group |
+|------|--------|-----|---------|------------|-------|
+| paragraph | `paragraph` | 1 | web+email | — | Text |
+| heading | `extended-heading` | 1 | web+email | — | Text |
+| quote | `extended-quote` | 1 | web+email | — | Text |
+| aside | `aside` | 1 | web+email | — | Text |
+| image | `image` | 1 | web+email | — | Media |
+| gallery | `gallery` | 1 | web+email | — | Media |
+| video | `video` | 1 | web+email | — | Media |
+| audio | `audio` | 1 | web+email | — | Media |
+| file | `file` | 1 | web+email | — | Media |
+| bookmark | `bookmark` | 1 | web+email | — | Embed |
+| embed | `embed` | 1 | web+email | — | Embed |
+| html | `html` | 1 | web+email | yes | Embed |
+| markdown | `markdown` | 1 | web+email | — | Embed |
+| codeblock | `codeblock` | 1 | web+email | — | Embed |
+| callout | `callout` | 1 | web+email | — | Layout |
+| toggle | `toggle` | 1 | web only | — | Layout |
+| button | `button` | 1 | web+email | — | Layout |
+| header | `header` | 2 | web+email | — | Layout |
+| call-to-action | `call-to-action` | 1 | web+email | yes | Layout |
+| signup | `signup` | 1 | web only | — | Membership |
+| product | `product` | 1 | web+email | — | Layout |
+| horizontalrule | `horizontalrule` | 1 | web+email | — | Divider |
+| paywall | `paywall` | 1 | web+email | — | Membership |
+| email | `email` | 1 | email only | — | Email-only |
+| email-cta | `email-cta` | 1 | email only | — | Email-only |
 
 
 ## Text
@@ -70,6 +75,8 @@ Pass the lexical tree as a **JSON string**, not a nested object.
 Standard block. `children` are `extended-text`/`link` nodes. `format` is a bitmask: 1=bold, 2=italic, 4=strikethrough, 8=underline, 16=code, 32=subscript, 64=superscript (combine by adding).
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -139,6 +146,8 @@ _Renders: web+email._
 
 _Renders: web+email._
 
+_Canonical payload (Ghost-stored):_
+
 ```json
 {
   "type": "extended-heading",
@@ -162,6 +171,66 @@ _Renders: web+email._
 ```
 
 
+### quote
+
+`extended-quote` (blockquote). Element node holding inline `extended-text`/`link` children directly.
+
+_Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
+
+```json
+{
+  "type": "extended-quote",
+  "version": 1,
+  "direction": "ltr",
+  "format": "",
+  "indent": 0,
+  "children": [
+    {
+      "type": "extended-text",
+      "version": 1,
+      "text": "A blockquote.",
+      "format": 0,
+      "mode": "normal",
+      "style": "",
+      "detail": 0
+    }
+  ]
+}
+```
+
+
+### aside
+
+Pull-quote / aside. Element node holding inline children; renders a styled `<aside>`.
+
+_Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
+
+```json
+{
+  "type": "aside",
+  "version": 1,
+  "direction": "ltr",
+  "format": "",
+  "indent": 0,
+  "children": [
+    {
+      "type": "extended-text",
+      "version": 1,
+      "text": "An aside / pull quote.",
+      "format": 0,
+      "mode": "normal",
+      "style": "",
+      "detail": 0
+    }
+  ]
+}
+```
+
+
 ## Media
 
 
@@ -170,6 +239,8 @@ _Renders: web+email._
 `cardWidth`: regular | wide | full. `href` makes it a link. `width`/`height` drive srcset.
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -186,12 +257,27 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `src` | `""` |
+| `caption` | `""` |
+| `title` | `""` |
+| `alt` | `""` |
+| `cardWidth` | `"regular"` |
+| `width` | `null` |
+| `height` | `null` |
+| `href` | `""` |
+
 
 ### gallery
 
 `images[]`: each `{fileName, row, src, width, height, title, alt}`. `row` groups images into rows (0-indexed).
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -221,12 +307,21 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `images` | `"[]"` |
+| `caption` | `""` |
+
 
 ### video
 
 Needs `thumbnailSrc` for a poster. `loop`, `duration` (seconds), `cardWidth`.
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -244,12 +339,32 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `src` | `""` |
+| `caption` | `""` |
+| `fileName` | `""` |
+| `mimeType` | `""` |
+| `width` | `null` |
+| `height` | `null` |
+| `duration` | `0` |
+| `thumbnailSrc` | `""` |
+| `customThumbnailSrc` | `""` |
+| `thumbnailWidth` | `null` |
+| `thumbnailHeight` | `null` |
+| `cardWidth` | `"regular"` |
+| `loop` | `false` |
+
 
 ### audio
 
 `title`, `duration` (seconds), `mimeType`, optional `thumbnailSrc`.
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -263,12 +378,24 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `duration` | `0` |
+| `mimeType` | `""` |
+| `src` | `""` |
+| `title` | `""` |
+| `thumbnailSrc` | `""` |
+
 
 ### file
 
 `fileTitle`, `fileCaption`, `fileName`, `fileSize` (bytes — Ghost formats it).
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -282,6 +409,16 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `src` | `""` |
+| `fileTitle` | `""` |
+| `fileCaption` | `""` |
+| `fileName` | `""` |
+| `fileSize` | `0` |
+
 
 ## Embed
 
@@ -291,6 +428,8 @@ _Renders: web+email._
 Card content lives in the nested `metadata` object, NOT top-level. `url` + `metadata{url,title,description,icon,publisher,author,thumbnail}`.
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -310,12 +449,25 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `title` | `""` |
+| `description` | `""` |
+| `url` | `""` |
+| `caption` | `""` |
+| `author` | `""` |
+| `publisher` | `""` |
+
 
 ### embed
 
 `html` is the raw iframe/embed markup. `embedType`: video | rich | photo | link. `metadata` optional.
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -331,12 +483,23 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `url` | `""` |
+| `embedType` | `""` |
+| `html` | `""` |
+| `caption` | `""` |
+
 
 ### html
 
 Raw HTML passthrough, wrapped in `<!--kg-card-begin/end: html-->`. Only `html` is required.
 
-_Renders: web+email._
+_Renders: web+email._ Supports a `visibility` object (web/email member segments).
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -346,12 +509,20 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `html` | `""` |
+
 
 ### markdown
 
 `markdown` string, rendered server-side to HTML.
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -361,12 +532,20 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `markdown` | `""` |
+
 
 ### codeblock
 
 `code`, `language` (highlight.js name), `caption`.
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -378,6 +557,14 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `code` | `""` |
+| `language` | `""` |
+| `caption` | `""` |
+
 
 ## Layout
 
@@ -387,6 +574,8 @@ _Renders: web+email._
 `calloutText`, `calloutEmoji` (empty string = no emoji), `backgroundColor` (named: grey/white/blue/green/yellow/red/pink/purple/accent or hex).
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -398,12 +587,22 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `calloutText` | `""` |
+| `calloutEmoji` | `"💡"` |
+| `backgroundColor` | `"blue"` |
+
 
 ### toggle
 
 `heading` + `content` (HTML string). Collapsible accordion; no-op in email.
 
 _Renders: web only._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -414,12 +613,21 @@ _Renders: web only._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `heading` | `""` |
+| `content` | `""` |
+
 
 ### button
 
 `buttonText`, `buttonUrl`, `alignment`: left | center.
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -431,12 +639,22 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `buttonText` | `""` |
+| `alignment` | `"center"` |
+| `buttonUrl` | `""` |
+
 
 ### header
 
 version 2. Big hero. `size`, `layout` (regular/wide/full/split), colors as hex or "accent"/"transparent", `backgroundImageSrc`, optional button.
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -464,12 +682,39 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `size` | `"small"` |
+| `style` | `"dark"` |
+| `buttonEnabled` | `false` |
+| `buttonUrl` | `""` |
+| `buttonText` | `""` |
+| `header` | `""` |
+| `subheader` | `""` |
+| `backgroundImageSrc` | `""` |
+| `version` | `1` |
+| `accentColor` | `"#FF1A75"` |
+| `alignment` | `"center"` |
+| `backgroundColor` | `"#000000"` |
+| `backgroundImageWidth` | `null` |
+| `backgroundImageHeight` | `null` |
+| `backgroundSize` | `"cover"` |
+| `textColor` | `"#FFFFFF"` |
+| `buttonColor` | `"#ffffff"` |
+| `buttonTextColor` | `"#000000"` |
+| `layout` | `"full"` |
+| `swapped` | `false` |
+
 
 ### call-to-action
 
 `textValue` is HTML. `layout`: minimal | immersive. `visibility` gates web/email segments. Optional image + button + sponsor label.
 
-_Renders: web+email._
+_Renders: web+email._ Supports a `visibility` object (web/email member segments).
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -504,12 +749,35 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `layout` | `"minimal"` |
+| `alignment` | `"left"` |
+| `textValue` | `""` |
+| `showButton` | `true` |
+| `showDividers` | `true` |
+| `buttonText` | `"Learn more"` |
+| `buttonUrl` | `""` |
+| `buttonColor` | `"#000000"` |
+| `buttonTextColor` | `"#ffffff"` |
+| `hasSponsorLabel` | `true` |
+| `sponsorLabel` | `"<p><span style=\"white-space: pre-wrap;\">SPONSORED</span></p>"` |
+| `backgroundColor` | `"grey"` |
+| `linkColor` | `"text"` |
+| `imageUrl` | `""` |
+| `imageWidth` | `null` |
+| `imageHeight` | `null` |
+
 
 ### product
 
 All fields prefixed `product*`. `productRatingEnabled` + `productStarRating` (1–5). Optional button.
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -528,6 +796,21 @@ _Renders: web+email._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `productImageSrc` | `""` |
+| `productImageWidth` | `null` |
+| `productImageHeight` | `null` |
+| `productTitle` | `""` |
+| `productDescription` | `""` |
+| `productRatingEnabled` | `false` |
+| `productStarRating` | `5` |
+| `productButtonEnabled` | `false` |
+| `productButton` | `""` |
+| `productUrl` | `""` |
+
 
 ## Membership
 
@@ -537,6 +820,8 @@ _Renders: web+email._
 Member signup form. `labels[]` applied to new members. `buttonColor` accepts "accent" or hex. No-op in email.
 
 _Renders: web only._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -562,12 +847,33 @@ _Renders: web only._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `alignment` | `"left"` |
+| `backgroundColor` | `"#F0F0F0"` |
+| `backgroundImageSrc` | `""` |
+| `backgroundSize` | `"cover"` |
+| `textColor` | `""` |
+| `buttonColor` | `"accent"` |
+| `buttonTextColor` | `"#FFFFFF"` |
+| `buttonText` | `"Subscribe"` |
+| `disclaimer` | `""` |
+| `header` | `""` |
+| `layout` | `"wide"` |
+| `subheader` | `""` |
+| `successMessage` | `"Email sent! Check your inbox to complete your signup."` |
+| `swapped` | `false` |
+
 
 ### paywall
 
 Just `{type, version}`. Splits free vs members-only content; renders `<!--members-only-->`.
 
 _Renders: web+email._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -586,6 +892,8 @@ Just `{type, version}`. Renders `<hr>`.
 
 _Renders: web+email._
 
+_Canonical payload (Ghost-stored):_
+
 ```json
 {
   "type": "horizontalrule",
@@ -603,6 +911,8 @@ Renders ONLY in newsletters (empty on web). `html` supports `{first_name, "fallb
 
 _Renders: email only._
 
+_Canonical payload (Ghost-stored):_
+
 ```json
 {
   "type": "email",
@@ -611,12 +921,20 @@ _Renders: email only._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `html` | `""` |
+
 
 ### email-cta
 
 Newsletter CTA. `segment` (e.g. status:free) targets member tiers. Empty on web.
 
 _Renders: email only._
+
+_Canonical payload (Ghost-stored):_
 
 ```json
 {
@@ -632,6 +950,18 @@ _Renders: email only._
 }
 ```
 
+_All fields and source defaults (`kg-default-nodes`):_
+
+| field | default |
+|-------|---------|
+| `alignment` | `"left"` |
+| `buttonText` | `""` |
+| `buttonUrl` | `""` |
+| `html` | `""` |
+| `segment` | `"status:free"` |
+| `showButton` | `false` |
+| `showDividers` | `true` |
+
 
 ## Notes
 
@@ -640,4 +970,4 @@ _Renders: email only._
 - **Visibility**: cards like `call-to-action` and `html` accept a `visibility` object to gate web/email and member segments.
 - **Email-only cards** (`email`, `email-cta`) and `toggle`/`signup` produce no web card wrapper where noted — that is expected, not a failure.
 - **Assets**: `src`/`imageUrl`/`thumbnailSrc` accept any URL. Upload to Ghost first (`images.upload`) for hosted assets, or reference external URLs.
-- Regenerate this reference with `tmp/koenig/` scripts against the local stack (see [experimentation.md](experimentation.md)).
+- Regenerate this reference with `scripts/koenig/` against the local stack (see [experimentation.md](experimentation.md)).

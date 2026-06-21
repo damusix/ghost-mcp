@@ -1,5 +1,5 @@
 ---
-generated_at: 2026-06-21T07:22:50Z
+generated_at: 2026-06-21T07:36:02Z
 atomic_version: 5.5.0
 ---
 # Deterministic signals
@@ -23,7 +23,7 @@ atomic_version: 5.5.0
 │   └── ghost-mcp.js (d53fafb, 2L, 48ch, 48B)
 ├── changes/ (1)
 │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
-├── docs/ (6)
+├── docs/ (7)
 │   ├── design/ (1)
 │   │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
 │   ├── ralph-loop/ (6)
@@ -55,15 +55,17 @@ atomic_version: 5.5.0
 │   ├── spec/ (1)
 │   │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
 │   ├── experimentation.md (9e1c5a9, 113L, 3788ch, 3788B)
-│   ├── koenig-cards.json (7444765, 322L, 8092ch, 8095B)
-│   └── koenig-cards.md (987d473, 643L, 13623ch, 13636B)
+│   ├── koenig-cards.json (cdb498e, 358L, 8774ch, 8777B)
+│   ├── koenig-cards.md (9583329, 973L, 21050ch, 21114B)
+│   └── koenig-node-specs.json (f35bae2, 311L, 6640ch, 6645B)
 ├── scripts/ (1)
-│   └── koenig/ (6)
-│       ├── README.md (4d9a16f, 32L, 1268ch, 1278B)
-│       ├── capture.mjs (7f7665c, 39L, 2078ch, 2078B)
-│       ├── cards.mjs (73b9ea0, 61L, 6593ch, 7034B)
-│       ├── gallery.mjs (59f2a9a, 46L, 2612ch, 2614B)
-│       ├── gen-doc.mjs (74634db, 101L, 6397ch, 6409B)
+│   └── koenig/ (7)
+│       ├── README.md (ab04e47, 43L, 1910ch, 1930B)
+│       ├── capture.mjs (ad908e9, 39L, 2096ch, 2096B)
+│       ├── cards.mjs (b4f29ef, 69L, 7039ch, 7480B)
+│       ├── extract-specs.mjs (7c9d517, 59L, 2986ch, 2994B)
+│       ├── gallery.mjs (0ffbfef, 46L, 2628ch, 2630B)
+│       ├── gen-doc.mjs (5b0a850, 119L, 7719ch, 7735B)
 │       └── roundtrip.mjs (7811160, 62L, 3049ch, 3055B)
 ├── sql/ (1)
 │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
@@ -128,9 +130,9 @@ atomic_version: 5.5.0
 
 ## Languages
 
-- YAML: 3907 LOC (40%), 6 files (8%)
-- TypeScript: 2998 LOC (31%), 33 files (49%)
-- Markdown: 1840 LOC (19%), 14 files (20%)
-- JSON: 509 LOC (5%), 7 files (10%)
-- JavaScript: 311 LOC (3%), 6 files (8%)
+- YAML: 3907 LOC (37%), 6 files (8%)
+- TypeScript: 2998 LOC (28%), 33 files (47%)
+- Markdown: 2181 LOC (20%), 14 files (20%)
+- JSON: 856 LOC (8%), 8 files (11%)
+- JavaScript: 396 LOC (3%), 7 files (10%)
 - Shell: 58 LOC (0%), 1 file (1%)

@@ -35,5 +35,5 @@ for (const [name, node] of Object.entries(cards)) {
   }
 }
 for (const pid of ids) await fetch(`${URL_}/ghost/api/admin/posts/${pid}/`, { method: 'DELETE', headers: hdr() });
-writeFileSync(new URL('./normalized.json', import.meta.url), JSON.stringify(out, null, 2));
-console.log('Captured', Object.keys(out).length, 'normalized card nodes -> normalized.json');
+writeFileSync(new URL('../../docs/koenig-cards.json', import.meta.url), JSON.stringify(out, null, 2));
+console.log('Captured', Object.keys(out).length, 'normalized card nodes -> docs/koenig-cards.json');

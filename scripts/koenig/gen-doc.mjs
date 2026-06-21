@@ -3,11 +3,16 @@
 // docs/koenig-cards.json, which is what Ghost itself stored — guaranteed valid.
 import { readFileSync, writeFileSync } from 'node:fs';
 const n = JSON.parse(readFileSync(new URL('../../docs/koenig-cards.json', import.meta.url), 'utf8'));
+const specs = JSON.parse(readFileSync(new URL('../../docs/koenig-node-specs.json', import.meta.url), 'utf8'));
+// spec keyed by node type (e.g. extended-quote), card keyed by friendly name (e.g. quote)
+const specFor = name => specs[n[name]?.type] || specs[name];
 
 // group, web-render behavior, and field notes per card
 const meta = {
   paragraph:       ['Text', 'web+email', 'Standard block. `children` are `extended-text`/`link` nodes. `format` is a bitmask: 1=bold, 2=italic, 4=strikethrough, 8=underline, 16=code, 32=subscript, 64=superscript (combine by adding).'],
   heading:         ['Text', 'web+email', '`extended-heading`. `tag` is h1–h6. Renders an auto `id` slug.'],
+  quote:           ['Text', 'web+email', '`extended-quote` (blockquote). Element node holding inline `extended-text`/`link` children directly.'],
+  aside:           ['Text', 'web+email', 'Pull-quote / aside. Element node holding inline children; renders a styled `<aside>`.'],
   image:           ['Media', 'web+email', '`cardWidth`: regular | wide | full. `href` makes it a link. `width`/`height` drive srcset.'],
   gallery:         ['Media', 'web+email', '`images[]`: each `{fileName, row, src, width, height, title, alt}`. `row` groups images into rows (0-indexed).'],
   video:           ['Media', 'web+email', 'Needs `thumbnailSrc` for a poster. `loop`, `duration` (seconds), `cardWidth`.'],
@@ -39,11 +44,14 @@ Every Ghost 6 post stores its body as a **lexical** JSON tree in the \`lexical\`
 field. Each Koenig editor feature is a node in that tree. To create content via
 the Admin API, POST a post with a \`lexical\` string — Ghost renders the HTML.
 
-Every payload below is the **canonical form Ghost itself stored** after a
-round-trip through the local Admin API (see \`docs/koenig-cards.json\` for the
-machine-readable set). All 23 node types were verified: POST accepted (201),
-stored, and rendered. Field names map 1:1 to the renderers in
-\`ghost/core/core/server/services/koenig/node-renderers/\`.
+Each card section has two parts: the **canonical payload** (the exact form Ghost
+stored after a round-trip through the local Admin API — POST accepted 201, stored,
+rendered) and the **full field/default table** extracted from the
+\`@tryghost/kg-default-nodes\` source (\`docs/koenig-node-specs.json\`). The payload
+shows a working example; the table shows every available field and its default.
+
+Machine-readable companions: \`docs/koenig-cards.json\` (example payloads) and
+\`docs/koenig-node-specs.json\` (full schema).
 
 
 ## Document envelope
@@ -69,12 +77,13 @@ Pass the lexical tree as a **JSON string**, not a nested object.
 ## Card index
 
 
-| Card | \`type\` | ver | Renders | Group |
-|------|--------|-----|---------|-------|
+| Card | \`type\` | ver | Renders | \`visibility\` | Group |
+|------|--------|-----|---------|------------|-------|
 `;
 for (const k of Object.keys(n)) {
   const [g, render] = meta[k];
-  md += `| ${k} | \`${n[k].type}\` | ${n[k].version} | ${render} | ${g} |\n`;
+  const vis = specFor(k)?.hasVisibility ? 'yes' : '—';
+  md += `| ${k} | \`${n[k].type}\` | ${n[k].version} | ${render} | ${vis} | ${g} |\n`;
 }
 
 for (const g of groups) {
@@ -83,7 +92,16 @@ for (const g of groups) {
   md += `\n\n## ${g}\n`;
   for (const k of keys) {
     const [, render, note] = meta[k];
-    md += `\n\n### ${k}\n\n${note}\n\n_Renders: ${render}._\n\n\`\`\`json\n${JSON.stringify(n[k], null, 2)}\n\`\`\`\n`;
+    const sp = specFor(k);
+    md += `\n\n### ${k}\n\n${note}\n\n_Renders: ${render}._`;
+    if (sp?.hasVisibility) md += ` Supports a \`visibility\` object (web/email member segments).`;
+    md += `\n\n_Canonical payload (Ghost-stored):_\n\n\`\`\`json\n${JSON.stringify(n[k], null, 2)}\n\`\`\`\n`;
+    const fields = sp && Object.keys(sp.fields || {}).length ? sp.fields : null;
+    if (fields) {
+      md += `\n_All fields and source defaults (\`kg-default-nodes\`):_\n\n`;
+      md += '| field | default |\n|-------|---------|\n';
+      for (const [f, d] of Object.entries(fields)) md += `| \`${f}\` | \`${JSON.stringify(d)}\` |\n`;
+    }
   }
 }
 
@@ -94,7 +112,7 @@ md += `\n\n## Notes
 - **Visibility**: cards like \`call-to-action\` and \`html\` accept a \`visibility\` object to gate web/email and member segments.
 - **Email-only cards** (\`email\`, \`email-cta\`) and \`toggle\`/\`signup\` produce no web card wrapper where noted — that is expected, not a failure.
 - **Assets**: \`src\`/\`imageUrl\`/\`thumbnailSrc\` accept any URL. Upload to Ghost first (\`images.upload\`) for hosted assets, or reference external URLs.
-- Regenerate this reference with \`tmp/koenig/\` scripts against the local stack (see [experimentation.md](experimentation.md)).
+- Regenerate this reference with \`scripts/koenig/\` against the local stack (see [experimentation.md](experimentation.md)).
 `;
 
 writeFileSync(new URL('../../docs/koenig-cards.md', import.meta.url), md);

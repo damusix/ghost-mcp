@@ -21,6 +21,14 @@ export const cards = {
     type: 'extended-heading', version: 1, tag: 'h2', direction: 'ltr', format: '', indent: 0,
     children: [{ type: 'extended-text', version: 1, text: 'A Heading', format: 0, mode: 'normal', style: '', detail: 0 }]
   },
+  quote: {
+    type: 'extended-quote', version: 1, direction: 'ltr', format: '', indent: 0,
+    children: [{ type: 'extended-text', version: 1, text: 'A blockquote.', format: 0, mode: 'normal', style: '', detail: 0 }]
+  },
+  aside: {
+    type: 'aside', version: 1, direction: 'ltr', format: '', indent: 0,
+    children: [{ type: 'extended-text', version: 1, text: 'An aside / pull quote.', format: 0, mode: 'normal', style: '', detail: 0 }]
+  },
 
   // ── media cards ───────────────────────────────────────────────────────
   image: { type: 'image', version: 1, src: IMG, width: 1600, height: 900, title: '', alt: 'Demo image', caption: 'An image caption', cardWidth: 'regular', href: '' },

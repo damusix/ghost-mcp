@@ -23,7 +23,7 @@ const hdr = () => ({ Authorization: 'Ghost ' + token(), 'Content-Type': 'applica
 const label = txt => ({ type: 'extended-heading', version: 1, tag: 'h3', direction: 'ltr', format: '', indent: 0,
   children: [{ type: 'extended-text', version: 1, text: txt, format: 0, mode: 'normal', style: '', detail: 0 }] });
 
-const order = ['heading','paragraph','image','gallery','video','audio','file','bookmark','embed','html','markdown','codeblock','callout','toggle','button','header','call-to-action','signup','product','horizontalrule','paywall','email','email-cta'];
+const order = ['heading','paragraph','quote','aside','image','gallery','video','audio','file','bookmark','embed','html','markdown','codeblock','callout','toggle','button','header','call-to-action','signup','product','horizontalrule','paywall','email','email-cta'];
 const children = [];
 for (const name of order) {
   children.push(label(`▸ ${name}`));
