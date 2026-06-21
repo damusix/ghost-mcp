@@ -1,5 +1,23 @@
 # @damusix/ghost-mcp
 
+## 0.4.0
+
+### Minor Changes
+
+- [`e879710`](https://github.com/damusix/ghost-mcp/commit/e879710faa08e7d61f0696c57050040e36f8a3ce) Thanks [@damusix](https://github.com/damusix)! - Support composing posts from a JSON file on disk via `blockFile`.
+
+  `compose_post` and `compose_lexical` now accept either inline `blocks` or a `blockFile` — an absolute path to a local JSON file containing a bare `[...]` array or `{ "blocks": [...] }`. This lets a client draft long posts in its own working file (validating with `compose_lexical` as it edits) and pass just the path, instead of re-sending the whole block array on every change. Exactly one of `blocks` or `blockFile` is required.
+
+- [`35e27b6`](https://github.com/damusix/ghost-mcp/commit/35e27b66a9d856ca7a86a274e594e4926ac71486) Thanks [@damusix](https://github.com/damusix)! - Add Koenig content-block composition so LLMs build clean, natively-editable posts instead of raw HTML.
+
+  New tools: `compose_post` (create/update a post from structured blocks), `compose_lexical` (compile blocks to a Lexical string), and `koenig_help` (discover block types and fields). A `compose_ghost_post` MCP prompt steers clients toward blocks over raw HTML. Prose blocks (paragraph/heading/list/quote/aside) become native Lexical nodes with inline markdown support; rich features use cards (callout, image, button, bookmark, codeblock, toggle, gallery, and more) with friendly field aliases.
+
+### Patch Changes
+
+- [`27f2a5c`](https://github.com/damusix/ghost-mcp/commit/27f2a5c10a29ad4ab4147f6c114f322df5bc7077) Thanks [@damusix](https://github.com/damusix)! - ghost_docs no longer swallows fetch failures.
+
+  Removed the redundant `attempt` tuple + try/catch + error re-wrapping in the `ghost_docs` tool. A failed docs fetch now rejects and propagates (surfaced as a tool error) instead of being caught and returned as an `"Error: ..."` string. This matches the codebase's error-handling conventions and drops the `!`/`as` it relied on.
+
 ## 0.3.0
 
 ### Minor Changes
