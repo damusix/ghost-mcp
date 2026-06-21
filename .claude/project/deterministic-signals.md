@@ -1,5 +1,5 @@
 ---
-generated_at: 2026-06-21T16:29:34Z
+generated_at: 2026-06-21T21:50:35Z
 atomic_version: 5.5.0
 ---
 # Deterministic signals
@@ -140,7 +140,7 @@ atomic_version: 5.5.0
 ├── LICENSE (42eaf96, 21L, 1070ch, 1070B)
 ├── README.md (7929779, 174L, 5268ch, 5281B)
 ├── docker-compose.yml (11b22d1, 60L, 1849ch, 1851B)
-├── package.json (0dbaa29, 56L, 1419ch, 1421B)
+├── package.json (a7b5841, 62L, 1545ch, 1547B)
 ├── pnpm-lock.yaml (9648f9d, 3719L, 117910ch, 117910B)
 ├── tsconfig.json (e1e0c50, 17L, 448ch, 448B)
 └── vite.config.ts (ccec1ac, 26L, 739ch, 739B)
@@ -154,6 +154,6 @@ atomic_version: 5.5.0
 - TypeScript: 4540 LOC (37%), 49 files (55%)
 - YAML: 3907 LOC (32%), 6 files (6%)
 - Markdown: 2251 LOC (18%), 17 files (19%)
-- JSON: 868 LOC (7%), 8 files (9%)
+- JSON: 874 LOC (7%), 8 files (9%)
 - JavaScript: 396 LOC (3%), 7 files (7%)
 - Shell: 58 LOC (0%), 1 file (1%)

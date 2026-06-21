@@ -52,5 +52,11 @@
         "typescript": "^5.8.2",
         "vite-plus": "^0.1.15-alpha.5",
         "vitest": "^3.1.1"
+    },
+    "packageManager": "pnpm@10.33.0",
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild"
+        ]
     }
 }

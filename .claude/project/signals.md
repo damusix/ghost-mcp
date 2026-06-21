@@ -2,7 +2,7 @@
 
 ## Framework & runtime
 
-TypeScript ESM package (`"type": "module"`), Node.js, built with `vite-plus` (`vp`). MCP server over stdio transport using `@modelcontextprotocol/sdk`. HTTP via `@logosdx/fetch` `FetchEngine` with built-in retry/cache/rate-limit/dedupe. Zod for all schema validation. JWT (`jsonwebtoken`, HS256) for Ghost Admin API auth. Published as `@damusix/ghost-mcp` v0.3.0.
+TypeScript ESM package (`"type": "module"`), Node.js, built with `vite-plus` (`vp`). Package manager pinned to `pnpm@10.33.0` via `packageManager` field; `pnpm.onlyBuiltDependencies: ["esbuild"]` approves esbuild's postinstall script (required since pnpm 11 blocks unapproved build scripts by default). MCP server over stdio transport using `@modelcontextprotocol/sdk`. HTTP via `@logosdx/fetch` `FetchEngine` with built-in retry/cache/rate-limit/dedupe. Zod for all schema validation. JWT (`jsonwebtoken`, HS256) for Ghost Admin API auth. Published as `@damusix/ghost-mcp` v0.3.0.
 
 ## Build / test / lint
 
