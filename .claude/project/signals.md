@@ -21,12 +21,12 @@ CI runs `vp fmt` → `vp check` → `vp test` → `vp pack` on push/PR to `main`
 
 | Language | LOC | Files | % |
 |----------|-----|-------|---|
-| YAML | 3907 | 6 | 47% |
-| TypeScript | 2998 | 33 | 36% |
-| Markdown | 1165 | 12 | 14% |
-| JSON | 176 | 5 | 2% |
+| YAML | 3907 | 6 | 40% |
+| TypeScript | 2998 | 33 | 31% |
+| Markdown | 1808 | 14 | 19% |
+| JSON | 498 | 6 | 5% |
+| JavaScript | 311 | 6 | 3% |
 | Shell | 58 | 1 | <1% |
-| JavaScript | 2 | 1 | <1% |
 
 ## DevOps & CI
 
@@ -41,11 +41,11 @@ CI: GitHub Actions ([`.github/workflows/ci.yml`](../../.github/workflows/ci.yml)
 | mcp-server | [`src/index.ts`](../../src/index.ts), [`bin/`](../../bin), [`.github/`](../../.github) | MCP server bootstrap: registers 3 tools, stdio transport, env-driven API mode | [`.claude/project/signals/mcp-server.md`](signals/mcp-server.md) |
 | actions | [`src/actions/`](../../src/actions) | Ghost API action registry: 18 files × typed `ActionDefinition` objects, Zod schemas, keyed Map store | [`.claude/project/signals/actions.md`](signals/actions.md) |
 | client-tools | [`src/ghost-client.ts`](../../src/ghost-client.ts), [`src/types.ts`](../../src/types.ts), [`src/tools/`](../../src/tools) | HTTP clients + 3 MCP tool handlers: `use_ghost_api`, `ghost_api_help`, `ghost_docs` | [`.claude/project/signals/client-tools.md`](signals/client-tools.md) |
-| experimentation | [`docker-compose.yml`](../../docker-compose.yml), [`.noorm/`](../../.noorm), [`bin/ghost-keys.sh`](../../bin/ghost-keys.sh), [`sql/`](../../sql), [`changes/`](../../changes) | Local Ghost 6 + MySQL 8 stack with noorm schema inspection for live API testing | [`.claude/project/signals/experimentation.md`](signals/experimentation.md) |
+| experimentation | [`docker-compose.yml`](../../docker-compose.yml), [`.noorm/`](../../.noorm), [`bin/ghost-keys.sh`](../../bin/ghost-keys.sh), [`sql/`](../../sql), [`changes/`](../../changes), [`scripts/koenig/`](../../scripts/koenig), [`docs/koenig-cards.md`](../../docs/koenig-cards.md), [`docs/koenig-cards.json`](../../docs/koenig-cards.json), [`.mcp.json`](.mcp.json) | Local Ghost 6 + MySQL 8 stack, noorm MCP DB inspection, and Koenig card lexical payload harness (23 card types round-tripped + validated) | [`.claude/project/signals/experimentation.md`](signals/experimentation.md) |
 
 ## Cross-cutting
 
 - Tests live in [`src/__tests__/`](../../src/__tests__) with subdirs mirroring [`src/actions/`](../../src/actions) and [`src/tools/`](../../src/tools); vitest is the runner.
 - All repo-root-relative path citations link to `.claude/project/signals/<domain>.md` detail files.
 - Deterministic substrate: [`.claude/project/deterministic-signals.md`](deterministic-signals.md).
-- Domain partitioning basis: functional concern — mcp-server owns the MCP wiring and release pipeline; actions owns all Ghost API operation definitions and the registry Map; client-tools owns the HTTP transport layer, type library, and the 3 MCP tool handlers that glue registry + HTTP together; experimentation owns the local Docker/noorm stack used for live API testing and schema inspection. The registry (actions) is a shared dependency: both client-tools (`use-ghost-api.ts`, `ghost-api-help.ts`) import from it; changes to `ActionDefinition` or `ApiType` propagate to client-tools. The experimentation domain's `bin/ghost-keys.sh --write` produces the `.env` consumed by the mcp-server at startup.
+- Domain partitioning basis: functional concern — mcp-server owns the MCP wiring and release pipeline; actions owns all Ghost API operation definitions and the registry Map; client-tools owns the HTTP transport layer, type library, and the 3 MCP tool handlers that glue registry + HTTP together; experimentation owns the local Docker/noorm stack, noorm MCP server registration ([`.mcp.json`](../../.mcp.json)), and the Koenig card harness ([`scripts/koenig/`](../../scripts/koenig)) used for live API testing, schema inspection, and lexical payload derivation. The registry (actions) is a shared dependency: both client-tools (`use-ghost-api.ts`, `ghost-api-help.ts`) import from it; changes to `ActionDefinition` or `ApiType` propagate to client-tools. The experimentation domain's `bin/ghost-keys.sh --write` produces the `.env` consumed by the mcp-server at startup and by all `scripts/koenig/*.mjs` scripts.

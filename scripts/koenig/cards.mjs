@@ -1,0 +1,61 @@
+// Candidate lexical payloads for every Koenig card, built from the Ghost
+// node-renderers + real production lexical. Round-tripped through the local
+// Ghost Admin API to confirm Ghost accepts, stores, and renders each one.
+//
+// Media srcs use static.ghost.org demo assets so they render.
+
+const IMG = 'https://static.ghost.org/v5.0.0/images/publishing-options.png';
+const THUMB = 'https://static.ghost.org/v5.0.0/images/twitter.png';
+
+export const cards = {
+  // ── text / structural (not "cards" but part of the tree) ──────────────
+  paragraph: {
+    type: 'paragraph', version: 1, direction: 'ltr', format: '', indent: 0,
+    children: [{ type: 'extended-text', version: 1, text: 'Plain paragraph with ', format: 0, mode: 'normal', style: '', detail: 0 },
+               { type: 'extended-text', version: 1, text: 'bold', format: 1, mode: 'normal', style: '', detail: 0 },
+               { type: 'extended-text', version: 1, text: ' and ', format: 0, mode: 'normal', style: '', detail: 0 },
+               { type: 'link', version: 1, direction: 'ltr', format: '', indent: 0, rel: null, target: null, title: null, url: 'https://ghost.org',
+                 children: [{ type: 'extended-text', version: 1, text: 'a link', format: 0, mode: 'normal', style: '', detail: 0 }] }]
+  },
+  heading: {
+    type: 'extended-heading', version: 1, tag: 'h2', direction: 'ltr', format: '', indent: 0,
+    children: [{ type: 'extended-text', version: 1, text: 'A Heading', format: 0, mode: 'normal', style: '', detail: 0 }]
+  },
+
+  // ── media cards ───────────────────────────────────────────────────────
+  image: { type: 'image', version: 1, src: IMG, width: 1600, height: 900, title: '', alt: 'Demo image', caption: 'An image caption', cardWidth: 'regular', href: '' },
+  gallery: { type: 'gallery', version: 1, caption: 'A two-image gallery',
+    images: [
+      { fileName: 'a.png', row: 0, src: IMG, width: 1600, height: 900, title: '', alt: '' },
+      { fileName: 'b.png', row: 0, src: THUMB, width: 1000, height: 500, title: '', alt: '' }
+    ] },
+  video: { type: 'video', version: 1, src: 'https://static.ghost.org/v4.0.0/videos/ghost-orb-white-hd.mp4', caption: 'A video', cardWidth: 'regular', width: 1920, height: 1080, loop: false, thumbnailSrc: THUMB, customThumbnailSrc: '', duration: 12 },
+  audio: { type: 'audio', version: 1, src: 'https://static.ghost.org/sample.mp3', title: 'An audio file', duration: 30, mimeType: 'audio/mp3', thumbnailSrc: THUMB },
+  file: { type: 'file', version: 1, src: 'https://static.ghost.org/sample.pdf', fileTitle: 'Whitepaper', fileCaption: 'Download our guide', fileName: 'guide.pdf', fileSize: 24567 },
+
+  // ── rich / embed cards ────────────────────────────────────────────────
+  bookmark: { type: 'bookmark', version: 1, url: 'https://ghost.org', caption: '',
+    metadata: { url: 'https://ghost.org', title: 'Ghost', description: 'The best open source blog & newsletter platform', icon: 'https://ghost.org/favicon.ico', publisher: 'Ghost', author: null, thumbnail: THUMB } },
+  embed: { type: 'embed', version: 1, url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', embedType: 'video', html: '<iframe width="200" height="113" src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>', metadata: { title: 'Video' }, caption: 'An embed' },
+  html: { type: 'html', version: 1, html: '<div class="custom">Raw <strong>HTML</strong> block</div>' },
+  markdown: { type: 'markdown', version: 1, markdown: '## Markdown card\n\nSupports **markdown** and lists:\n\n- one\n- two' },
+  codeblock: { type: 'codeblock', version: 1, code: "const x = 1;\nconsole.log(x);", language: 'javascript', caption: 'A code snippet' },
+
+  // ── layout / interactive cards ────────────────────────────────────────
+  callout: { type: 'callout', version: 1, calloutText: 'This is a callout with an emoji.', calloutEmoji: '💡', backgroundColor: 'blue' },
+  toggle: { type: 'toggle', version: 1, heading: 'Click to expand', content: '<p>Hidden content revealed on toggle.</p>' },
+  button: { type: 'button', version: 1, buttonText: 'Subscribe now', buttonUrl: 'https://example.com', alignment: 'center' },
+  header: { type: 'header', version: 2, size: 'small', style: 'image', buttonEnabled: true, buttonText: 'Get started', buttonUrl: 'https://example.com',
+    header: 'Big Header', subheader: 'A compelling subheader', alignment: 'center', backgroundColor: '#000000', backgroundImageSrc: IMG, backgroundImageWidth: 1600, backgroundImageHeight: 900, backgroundSize: 'cover', textColor: '#FFFFFF', buttonColor: '#ffffff', buttonTextColor: '#000000', layout: 'full', swapped: false, accentColor: '#FF0095' },
+  'call-to-action': { type: 'call-to-action', version: 1, layout: 'minimal', textValue: '<p>This is a call to action.</p>', showButton: true, buttonText: 'Act now', buttonUrl: 'https://example.com', buttonColor: '#000000', buttonTextColor: '#ffffff', hasSponsorLabel: true, sponsorLabel: '<p>SPONSORED</p>', backgroundColor: 'grey', alignment: 'left', imageUrl: IMG, imageWidth: 1600, imageHeight: 900, linkColor: 'text', showDividers: true, visibility: { web: { nonMember: true, freeMember: true, paidMember: true }, email: { memberSegment: 'status:free,status:-free' } } },
+  signup: { type: 'signup', version: 1, alignment: 'left', backgroundColor: '#F0F0F0', backgroundImageSrc: '', backgroundSize: 'cover', buttonColor: 'accent', buttonText: 'Subscribe', buttonTextColor: '#FFFFFF', disclaimer: 'No spam. Unsubscribe anytime.', header: 'Sign up for our newsletter', labels: ['From signup card'], layout: 'wide', subheader: 'Join the community', successMessage: 'Check your inbox!', textColor: '#000000', swapped: false },
+  product: { type: 'product', version: 1, productImageSrc: IMG, productImageWidth: 1600, productImageHeight: 900, productTitle: 'The Product', productDescription: 'A great product you should buy.', productRatingEnabled: true, productStarRating: 5, productButtonEnabled: true, productButton: 'Buy now', productUrl: 'https://example.com' },
+
+  // ── dividers / membership markers ─────────────────────────────────────
+  horizontalrule: { type: 'horizontalrule', version: 1 },
+  paywall: { type: 'paywall', version: 1 },
+
+  // ── email-only cards (render empty on web, valid in email) ─────────────
+  email: { type: 'email', version: 1, html: '<p>Hello {first_name, "there"}, this only shows in the email.</p>' },
+  'email-cta': { type: 'email-cta', version: 1, alignment: 'left', buttonText: 'Read more', buttonUrl: 'https://example.com', html: '<p>Email-only CTA text.</p>', segment: 'status:free', showButton: true, showDividers: true },
+};

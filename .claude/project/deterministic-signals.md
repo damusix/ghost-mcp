@@ -1,5 +1,5 @@
 ---
-generated_at: 2026-06-20T21:51:28Z
+generated_at: 2026-06-21T07:22:50Z
 atomic_version: 5.5.0
 ---
 # Deterministic signals
@@ -23,7 +23,7 @@ atomic_version: 5.5.0
 │   └── ghost-mcp.js (d53fafb, 2L, 48ch, 48B)
 ├── changes/ (1)
 │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
-├── docs/ (4)
+├── docs/ (6)
 │   ├── design/ (1)
 │   │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
 │   ├── ralph-loop/ (6)
@@ -54,7 +54,17 @@ atomic_version: 5.5.0
 │   │   └── ralph.config.yml (179a478, 10L, 226ch, 226B)
 │   ├── spec/ (1)
 │   │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
-│   └── experimentation.md (9e1c5a9, 113L, 3788ch, 3788B)
+│   ├── experimentation.md (9e1c5a9, 113L, 3788ch, 3788B)
+│   ├── koenig-cards.json (7444765, 322L, 8092ch, 8095B)
+│   └── koenig-cards.md (987d473, 643L, 13623ch, 13636B)
+├── scripts/ (1)
+│   └── koenig/ (6)
+│       ├── README.md (4d9a16f, 32L, 1268ch, 1278B)
+│       ├── capture.mjs (7f7665c, 39L, 2078ch, 2078B)
+│       ├── cards.mjs (73b9ea0, 61L, 6593ch, 7034B)
+│       ├── gallery.mjs (59f2a9a, 46L, 2612ch, 2614B)
+│       ├── gen-doc.mjs (74634db, 101L, 6397ch, 6409B)
+│       └── roundtrip.mjs (7811160, 62L, 3049ch, 3055B)
 ├── sql/ (1)
 │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
 ├── src/ (6)
@@ -99,6 +109,7 @@ atomic_version: 5.5.0
 │   └── types.ts (379e474, 256L, 6630ch, 6630B)
 ├── .gitignore (3071466, 12L, 175ch, 175B)
 ├── .graphifyignore (0351de5, 53L, 1229ch, 1897B)
+├── .mcp.json (14f011f, 11L, 174ch, 174B)
 ├── .oxlintrc.json (ef67daa, 77L, 2721ch, 2721B)
 ├── .signalsignore (b0287a5, 17L, 662ch, 674B)
 ├── CHANGELOG.md (292e28e, 49L, 2749ch, 2757B)
@@ -117,9 +128,9 @@ atomic_version: 5.5.0
 
 ## Languages
 
-- YAML: 3907 LOC (47%), 6 files (10%)
-- TypeScript: 2998 LOC (36%), 33 files (56%)
-- Markdown: 1165 LOC (14%), 12 files (20%)
-- JSON: 176 LOC (2%), 5 files (8%)
+- YAML: 3907 LOC (40%), 6 files (8%)
+- TypeScript: 2998 LOC (31%), 33 files (49%)
+- Markdown: 1840 LOC (19%), 14 files (20%)
+- JSON: 509 LOC (5%), 7 files (10%)
+- JavaScript: 311 LOC (3%), 6 files (8%)
 - Shell: 58 LOC (0%), 1 file (1%)
-- JavaScript: 2 LOC (0%), 1 file (1%)
