@@ -53,7 +53,7 @@ describe('compose_post handler', () => {
         expect(adminApi.post).toHaveBeenCalledTimes(1);
         const [path, body] = vi.mocked(adminApi.post).mock.calls[0];
         expect(path).toBe('/posts/');
-        const post = (body as { posts: Array<Record<string, unknown>> }).posts[0];
+        const post = (body as { posts: Record<string, unknown>[] }).posts[0];
         expect(post.title).toBe('My Post');
         expect(typeof post.lexical).toBe('string');
 
@@ -102,7 +102,7 @@ describe('compose_post handler', () => {
         );
 
         const [, body] = vi.mocked(adminApi.post).mock.calls[0];
-        const post = (body as { posts: Array<Record<string, unknown>> }).posts[0];
+        const post = (body as { posts: Record<string, unknown>[] }).posts[0];
         expect(post.custom_excerpt).toBe('A summary');
         expect(post.excerpt).toBeUndefined();
     });

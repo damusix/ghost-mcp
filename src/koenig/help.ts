@@ -89,7 +89,9 @@ export function blockHelp(blockType?: string): string {
         '',
         '## Prose (native, inline markdown in `text`)',
     ];
-    for (const p of PROSE) lines.push(`- **${p.type}** — ${p.description}`);
+    for (const p of PROSE) {
+        lines.push(`- **${p.type}** — ${p.description}`);
+    }
 
     const byGroup: Record<string, string[]> = {};
     for (const [type, def] of Object.entries(CARDS)) {

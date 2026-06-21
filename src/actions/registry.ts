@@ -105,9 +105,9 @@ function describeZodType(field: z.ZodType): string {
         return `\`${String((inner._def as z.ZodLiteralDef).value)}\``;
     }
 
-    if (inner instanceof z.ZodString) return 'string';
-    if (inner instanceof z.ZodNumber) return 'number';
-    if (inner instanceof z.ZodBoolean) return 'boolean';
+    if (inner instanceof z.ZodString) {return 'string';}
+    if (inner instanceof z.ZodNumber) {return 'number';}
+    if (inner instanceof z.ZodBoolean) {return 'boolean';}
 
     return '';
 }

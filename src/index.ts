@@ -88,11 +88,12 @@ server.registerPrompt(
                 role: 'assistant' as const,
                 content: {
                     type: 'text' as const,
-                    text:
-                        'When writing Ghost post content, do NOT push raw HTML into the API. Compose the post from structured Koenig blocks via the `compose_post` tool — this yields clean, natively-editable posts.\n\n' +
-                        'Workflow: (1) call `koenig_help` to see block types; (2) build a `blocks` array — prose as paragraph/heading/list/quote blocks (their `text` supports inline **bold**, _italic_, `code`, [links](url)), and rich features as cards (callout, image, button, bookmark, embed, codeblock, toggle, gallery, etc.); (3) call `compose_post`. Use the `html` block ONLY when no native block fits.\n\n' +
-                        'For a short post, pass `blocks` inline. For a long post, write the blocks JSON to an absolute path (e.g. under tmp/), optionally validate it with `compose_lexical` (`blockFile`), then call `compose_post` with `blockFile` — this avoids re-sending the whole array on each edit.\n\n' +
+                    text: [
+                        'When writing Ghost post content, do NOT push raw HTML into the API. Compose the post from structured Koenig blocks via the `compose_post` tool — this yields clean, natively-editable posts.',
+                        'Workflow: (1) call `koenig_help` to see block types; (2) build a `blocks` array — prose as paragraph/heading/list/quote blocks (their `text` supports inline **bold**, _italic_, `code`, [links](url)), and rich features as cards (callout, image, button, bookmark, embed, codeblock, toggle, gallery, etc.); (3) call `compose_post`. Use the `html` block ONLY when no native block fits.',
+                        'For a short post, pass `blocks` inline. For a long post, write the blocks JSON to an absolute path (e.g. under tmp/), optionally validate it with `compose_lexical` (`blockFile`), then call `compose_post` with `blockFile` — this avoids re-sending the whole array on each edit.',
                         blockHelp(),
+                    ].join('\n\n'),
                 },
             },
         ],

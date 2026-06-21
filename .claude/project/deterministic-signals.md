@@ -1,5 +1,5 @@
 ---
-generated_at: 2026-06-21T21:58:38Z
+generated_at: 2026-06-21T22:08:17Z
 atomic_version: 5.5.0
 ---
 # Deterministic signals
@@ -78,11 +78,11 @@ atomic_version: 5.5.0
 │   │   │   ├── admin-posts.test.ts (5cb6ff7, 141L, 4607ch, 4607B)
 │   │   │   └── content-posts.test.ts (f4b8200, 67L, 2347ch, 2347B)
 │   │   ├── koenig/ (2)
-│   │   │   ├── compose.test.ts (aeb8c1f, 94L, 3825ch, 3831B)
+│   │   │   ├── compose.test.ts (9b95d65, 96L, 3847ch, 3853B)
 │   │   │   └── inline.test.ts (63782b5, 57L, 2235ch, 2235B)
 │   │   ├── tools/ (5)
 │   │   │   ├── blocks-source.test.ts (0672f02, 67L, 2476ch, 2476B)
-│   │   │   ├── compose-post.test.ts (479ab3c, 109L, 3701ch, 3704B)
+│   │   │   ├── compose-post.test.ts (6a6888d, 109L, 3691ch, 3694B)
 │   │   │   ├── ghost-api-help.test.ts (da0015a, 80L, 3090ch, 3090B)
 │   │   │   ├── ghost-docs.test.ts (7ac29ac, 63L, 2116ch, 2116B)
 │   │   │   └── use-ghost-api.test.ts (24a7ba0, 178L, 5537ch, 5539B)
@@ -109,26 +109,26 @@ atomic_version: 5.5.0
 │   │   │   ├── settings.ts (ea0bd7e, 15L, 435ch, 437B)
 │   │   │   ├── tags.ts (195ac33, 52L, 1676ch, 1678B)
 │   │   │   └── tiers.ts (8906f44, 30L, 939ch, 941B)
-│   │   └── registry.ts (eb1e2ea, 186L, 5994ch, 5996B)
+│   │   └── registry.ts (b42cf16, 186L, 6000ch, 6002B)
 │   ├── koenig/ (8)
-│   │   ├── blocks.ts (4cf74f9, 92L, 3354ch, 3354B)
-│   │   ├── cards.ts (18296ef, 367L, 12605ch, 12608B)
-│   │   ├── compose.ts (5c3a1fe, 50L, 1715ch, 1715B)
-│   │   ├── help.ts (6238492, 107L, 3827ch, 3837B)
+│   │   ├── blocks.ts (c4f4806, 101L, 3493ch, 3493B)
+│   │   ├── cards.ts (2717653, 377L, 12757ch, 12760B)
+│   │   ├── compose.ts (e333a60, 52L, 1754ch, 1754B)
+│   │   ├── help.ts (2f70265, 109L, 3843ch, 3853B)
 │   │   ├── index.ts (595e72b, 6L, 353ch, 353B)
 │   │   ├── inline.ts (46cd051, 96L, 2664ch, 2666B)
 │   │   ├── node-specs.ts (c65783b, 257L, 6416ch, 6419B)
 │   │   └── util.ts (5b5d1ab, 3L, 160ch, 160B)
 │   ├── tools/ (7)
-│   │   ├── blocks-source.ts (8f567f8, 66L, 2026ch, 2026B)
-│   │   ├── compose-lexical.ts (b28325e, 34L, 1287ch, 1287B)
-│   │   ├── compose-post.ts (9b7a017, 83L, 3698ch, 3700B)
+│   │   ├── blocks-source.ts (8c88bd4, 70L, 2058ch, 2058B)
+│   │   ├── compose-lexical.ts (d5acddc, 34L, 1299ch, 1299B)
+│   │   ├── compose-post.ts (fe81071, 83L, 3710ch, 3712B)
 │   │   ├── ghost-api-help.ts (8ff1f04, 62L, 2093ch, 2095B)
 │   │   ├── ghost-docs.ts (48267ec, 78L, 2597ch, 2597B)
 │   │   ├── koenig-help.ts (4b134c4, 17L, 489ch, 489B)
 │   │   └── use-ghost-api.ts (4d73182, 225L, 7621ch, 7625B)
 │   ├── ghost-client.ts (d8cd95e, 120L, 3285ch, 3287B)
-│   ├── index.ts (d70b11a, 110L, 5041ch, 5053B)
+│   ├── index.ts (99b08b4, 111L, 5064ch, 5076B)
 │   └── types.ts (379e474, 256L, 6630ch, 6630B)
 ├── .gitignore (3071466, 12L, 175ch, 175B)
 ├── .graphifyignore (0351de5, 53L, 1229ch, 1897B)
@@ -151,8 +151,8 @@ atomic_version: 5.5.0
 
 ## Languages
 
-- TypeScript: 4540 LOC (36%), 49 files (55%)
-- YAML: 3907 LOC (31%), 6 files (6%)
+- TypeScript: 4570 LOC (36%), 49 files (55%)
+- YAML: 3907 LOC (30%), 6 files (6%)
 - Markdown: 2246 LOC (17%), 17 files (19%)
 - JavaScript: 957 LOC (7%), 7 files (7%)
 - JSON: 874 LOC (6%), 8 files (9%)

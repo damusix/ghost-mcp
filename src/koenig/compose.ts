@@ -12,9 +12,9 @@ export interface ComposeIssue {
 
 export class ComposeError extends Error {
     constructor(public issues: ComposeIssue[]) {
+        const detail = issues.map((i) => `[#${i.index} ${i.type}] ${i.message}`).join('; ');
         super(
-            `composition failed (${issues.length} issue${issues.length === 1 ? '' : 's'}): ` +
-                issues.map((i) => `[#${i.index} ${i.type}] ${i.message}`).join('; '),
+            `composition failed (${issues.length} issue${issues.length === 1 ? '' : 's'}): ${detail}`,
         );
         this.name = 'ComposeError';
     }
@@ -31,15 +31,17 @@ export function composeRoot(blocks: unknown[]): LexicalNode {
     blocks.forEach((block, index) => {
         try {
             children.push(buildBlock(block));
-        } catch (err) {
+        } catch (error) {
             issues.push({
                 index,
                 type: isRecord(block) && typeof block.type === 'string' ? block.type : '(invalid)',
-                message: err instanceof Error ? err.message : String(err),
+                message: error instanceof Error ? error.message : String(error),
             });
         }
     });
-    if (issues.length > 0) throw new ComposeError(issues);
+    if (issues.length > 0) {
+        throw new ComposeError(issues);
+    }
     return {
         root: { type: 'root', version: 1, direction: 'ltr', format: '', indent: 0, children },
     };

@@ -1,8 +1,10 @@
 // Turns a friendly block into a Lexical node. Prose blocks (paragraph, heading,
 // list, quote, aside) become native element nodes with inline-markdown children
 // so they stay editable in Koenig; everything else dispatches to a card builder.
-import { parseInline, type InlineNode } from './inline.js';
-import { buildCardNode, isCardType, CARDS, type LexicalNode } from './cards.js';
+import { parseInline } from './inline.js';
+import type { InlineNode } from './inline.js';
+import { buildCardNode, isCardType, CARDS } from './cards.js';
+import type { LexicalNode } from './cards.js';
 import { isRecord } from './util.js';
 
 export interface Block {
@@ -25,8 +27,9 @@ function asString(value: unknown, field: string, blockType: string): string {
 
 function buildProse(block: Block): LexicalNode | null {
     switch (block.type) {
-        case 'paragraph':
+        case 'paragraph': {
             return element('paragraph', {}, parseInline(asString(block.text, 'text', 'paragraph')));
+        }
         case 'heading': {
             const level =
                 typeof block.level === 'number' ? Math.min(6, Math.max(1, block.level)) : 2;
@@ -36,18 +39,21 @@ function buildProse(block: Block): LexicalNode | null {
                 parseInline(asString(block.text, 'text', 'heading')),
             );
         }
-        case 'quote':
+        case 'quote': {
             return element(
                 'extended-quote',
                 {},
                 parseInline(asString(block.text, 'text', 'quote')),
             );
-        case 'aside':
+        }
+        case 'aside': {
             return element('aside', {}, parseInline(asString(block.text, 'text', 'aside')));
+        }
         case 'list': {
             const items = Array.isArray(block.items) ? block.items : [];
-            if (items.length === 0)
+            if (items.length === 0) {
                 throw new Error('block "list" requires a non-empty "items" array');
+            }
             const ordered = block.style === 'number' || block.style === 'ordered';
             const children = items.map(
                 (item, i): LexicalNode =>
@@ -63,8 +69,9 @@ function buildProse(block: Block): LexicalNode | null {
                 children,
             );
         }
-        default:
+        default: {
             return null;
+        }
     }
 }
 
@@ -77,7 +84,9 @@ export function buildBlock(block: unknown): LexicalNode {
         throw new Error('each block must be an object with a string "type"');
     }
     const prose = buildProse(block);
-    if (prose) return prose;
+    if (prose) {
+        return prose;
+    }
     if (isCardType(block.type)) {
         const { type, ...fields } = block;
         return buildCardNode(type, fields);

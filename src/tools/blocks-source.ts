@@ -11,8 +11,12 @@ export interface BlocksSource {
 }
 
 function extractBlocks(parsed: unknown): unknown[] | null {
-    if (Array.isArray(parsed)) return parsed;
-    if (isRecord(parsed) && Array.isArray(parsed.blocks)) return parsed.blocks;
+    if (Array.isArray(parsed)) {
+        return parsed;
+    }
+    if (isRecord(parsed) && Array.isArray(parsed.blocks)) {
+        return parsed.blocks;
+    }
     return null;
 }
 

@@ -22,13 +22,13 @@ export function handleComposeLexical(input: ComposeLexicalInput): string {
         const blocks = resolveBlocks({ blocks: input.blocks, blockFile: input.blockFile });
         const lexical = compose(blocks);
         return JSON.stringify({ lexical });
-    } catch (err) {
-        if (err instanceof ComposeError) {
-            return JSON.stringify({ error: 'composition failed', issues: err.issues });
+    } catch (error) {
+        if (error instanceof ComposeError) {
+            return JSON.stringify({ error: 'composition failed', issues: error.issues });
         }
         return JSON.stringify({
             error: 'invalid blocks input',
-            message: err instanceof Error ? err.message : String(err),
+            message: error instanceof Error ? error.message : String(error),
         });
     }
 }

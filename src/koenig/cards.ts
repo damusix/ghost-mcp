@@ -79,7 +79,9 @@ export const CARDS: Record<string, CardDef> = {
                 };
             });
             const node: LexicalNode = { images: built };
-            if (typeof fields.caption === 'string') node.caption = fields.caption;
+            if (typeof fields.caption === 'string') {
+                node.caption = fields.caption;
+            }
             return node;
         },
     },
@@ -137,7 +139,9 @@ export const CARDS: Record<string, CardDef> = {
                 'thumbnail',
             ] as const;
             const metadata: Record<string, unknown> = { url: fields.url };
-            for (const k of metaKeys) metadata[k] = fields[k] ?? (k === 'author' ? null : '');
+            for (const k of metaKeys) {
+                metadata[k] = fields[k] ?? (k === 'author' ? null : '');
+            }
             const node: LexicalNode = { url: fields.url, caption: fields.caption ?? '', metadata };
             return node;
         },
@@ -260,7 +264,11 @@ export const CARDS: Record<string, CardDef> = {
                 'imageHeight',
                 'visibility',
             ] as const;
-            for (const k of passKeys) if (k in fields) node[k] = fields[k];
+            for (const k of passKeys) {
+                if (k in fields) {
+                    node[k] = fields[k];
+                }
+            }
             if (typeof fields.text === 'string') {
                 node.textValue = /^\s*</.test(fields.text) ? fields.text : `<p>${fields.text}</p>`;
             }
@@ -352,7 +360,9 @@ export const CARDS: Record<string, CardDef> = {
 
 export function buildCardNode(blockType: string, fields: Fields): LexicalNode {
     const def = CARDS[blockType];
-    if (!def) throw new Error(`unknown card type "${blockType}"`);
+    if (!def) {
+        throw new Error(`unknown card type "${blockType}"`);
+    }
     for (const r of def.required) {
         if (fields[r] === undefined || fields[r] === null || fields[r] === '') {
             throw new Error(`card "${blockType}" requires field "${r}"`);

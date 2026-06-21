@@ -1,8 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import { compose, composeRoot, ComposeError } from '../../koenig/compose.js';
+import type { ComposeIssue } from '../../koenig/compose.js';
 
 function nodes(blocks: Parameters<typeof composeRoot>[0]) {
-    const root = composeRoot(blocks) as { root: { children: Array<Record<string, unknown>> } };
+    const root = composeRoot(blocks) as { root: { children: Record<string, unknown>[] } };
     return root.root.children;
 }
 
@@ -28,7 +29,7 @@ describe('compose', () => {
         const [list] = nodes([{ type: 'list', style: 'bullet', items: ['one', 'two'] }]);
         expect(list).toMatchObject({ type: 'list', listType: 'bullet', tag: 'ul' });
         expect((list.children as unknown[]).length).toBe(2);
-        expect((list.children as Array<Record<string, unknown>>)[0]).toMatchObject({
+        expect((list.children as Record<string, unknown>[])[0]).toMatchObject({
             type: 'listitem',
             value: 1,
         });
@@ -66,20 +67,21 @@ describe('compose', () => {
     });
 
     it('aggregates errors with block index and type', () => {
+        let issues: ComposeIssue[] = [];
         try {
             compose([
                 { type: 'paragraph', text: 'ok' },
                 { type: 'button', text: 'no url' },
                 { type: 'nope' },
             ]);
-            throw new Error('should have thrown');
-        } catch (err) {
-            expect(err).toBeInstanceOf(ComposeError);
-            const issues = (err as ComposeError).issues;
-            expect(issues).toHaveLength(2);
-            expect(issues[0]).toMatchObject({ index: 1, type: 'button' });
-            expect(issues[1]).toMatchObject({ index: 2, type: 'nope' });
+        } catch (error) {
+            if (error instanceof ComposeError) {
+                issues = error.issues;
+            }
         }
+        expect(issues).toHaveLength(2);
+        expect(issues[0]).toMatchObject({ index: 1, type: 'button' });
+        expect(issues[1]).toMatchObject({ index: 2, type: 'nope' });
     });
 
     it('rejects an empty block list', () => {
