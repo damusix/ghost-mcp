@@ -1,5 +1,5 @@
 ---
-generated_at: 2026-06-21T07:36:02Z
+generated_at: 2026-06-21T08:04:55Z
 atomic_version: 5.5.0
 ---
 # Deterministic signals
@@ -69,12 +69,16 @@ atomic_version: 5.5.0
 │       └── roundtrip.mjs (7811160, 62L, 3049ch, 3055B)
 ├── sql/ (1)
 │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
-├── src/ (6)
-│   ├── __tests__/ (4)
+├── src/ (7)
+│   ├── __tests__/ (5)
 │   │   ├── actions/ (2)
 │   │   │   ├── admin-posts.test.ts (5cb6ff7, 141L, 4607ch, 4607B)
 │   │   │   └── content-posts.test.ts (f4b8200, 67L, 2347ch, 2347B)
-│   │   ├── tools/ (3)
+│   │   ├── koenig/ (2)
+│   │   │   ├── compose.test.ts (aeb8c1f, 94L, 3825ch, 3831B)
+│   │   │   └── inline.test.ts (63782b5, 57L, 2235ch, 2235B)
+│   │   ├── tools/ (4)
+│   │   │   ├── compose-post.test.ts (479ab3c, 109L, 3701ch, 3704B)
 │   │   │   ├── ghost-api-help.test.ts (da0015a, 80L, 3090ch, 3090B)
 │   │   │   ├── ghost-docs.test.ts (1924141, 76L, 2407ch, 2407B)
 │   │   │   └── use-ghost-api.test.ts (24a7ba0, 178L, 5537ch, 5539B)
@@ -102,12 +106,23 @@ atomic_version: 5.5.0
 │   │   │   ├── tags.ts (195ac33, 52L, 1676ch, 1678B)
 │   │   │   └── tiers.ts (8906f44, 30L, 939ch, 941B)
 │   │   └── registry.ts (eb1e2ea, 186L, 5994ch, 5996B)
-│   ├── tools/ (3)
+│   ├── koenig/ (7)
+│   │   ├── blocks.ts (ebfab53, 87L, 3252ch, 3252B)
+│   │   ├── cards.ts (66537a7, 366L, 12613ch, 12616B)
+│   │   ├── compose.ts (d05662a, 52L, 1772ch, 1772B)
+│   │   ├── help.ts (6238492, 107L, 3827ch, 3837B)
+│   │   ├── index.ts (595e72b, 6L, 353ch, 353B)
+│   │   ├── inline.ts (46cd051, 96L, 2664ch, 2666B)
+│   │   └── node-specs.ts (c65783b, 257L, 6416ch, 6419B)
+│   ├── tools/ (6)
+│   │   ├── compose-lexical.ts (c74af55, 24L, 805ch, 805B)
+│   │   ├── compose-post.ts (b0430a0, 71L, 2835ch, 2835B)
 │   │   ├── ghost-api-help.ts (8ff1f04, 62L, 2093ch, 2095B)
 │   │   ├── ghost-docs.ts (bd65d78, 91L, 2955ch, 2955B)
+│   │   ├── koenig-help.ts (4b134c4, 17L, 489ch, 489B)
 │   │   └── use-ghost-api.ts (4d73182, 225L, 7621ch, 7625B)
 │   ├── ghost-client.ts (d8cd95e, 120L, 3285ch, 3287B)
-│   ├── index.ts (1c82f5a, 53L, 1872ch, 1876B)
+│   ├── index.ts (fc4ed33, 109L, 4615ch, 4625B)
 │   └── types.ts (379e474, 256L, 6630ch, 6630B)
 ├── .gitignore (3071466, 12L, 175ch, 175B)
 ├── .graphifyignore (0351de5, 53L, 1229ch, 1897B)
@@ -117,12 +132,12 @@ atomic_version: 5.5.0
 ├── CHANGELOG.md (292e28e, 49L, 2749ch, 2757B)
 ├── CLAUDE.md (eec34c2, 17L, 576ch, 576B)
 ├── LICENSE (42eaf96, 21L, 1070ch, 1070B)
-├── README.md (330b66c, 125L, 3287ch, 3289B)
+├── README.md (05fbbf6, 165L, 4864ch, 4875B)
 ├── docker-compose.yml (11b22d1, 60L, 1849ch, 1851B)
 ├── package.json (0dbaa29, 56L, 1419ch, 1421B)
 ├── pnpm-lock.yaml (9648f9d, 3719L, 117910ch, 117910B)
 ├── tsconfig.json (e1e0c50, 17L, 448ch, 448B)
-└── vite.config.ts (51862b1, 20L, 446ch, 446B)
+└── vite.config.ts (ccec1ac, 26L, 739ch, 739B)
 
 ## Manifests
 
@@ -130,9 +145,9 @@ atomic_version: 5.5.0
 
 ## Languages
 
-- YAML: 3907 LOC (37%), 6 files (8%)
-- TypeScript: 2998 LOC (28%), 33 files (47%)
-- Markdown: 2181 LOC (20%), 14 files (20%)
-- JSON: 856 LOC (8%), 8 files (11%)
-- JavaScript: 396 LOC (3%), 7 files (10%)
+- TypeScript: 4403 LOC (37%), 46 files (56%)
+- YAML: 3907 LOC (32%), 6 files (7%)
+- Markdown: 2221 LOC (18%), 14 files (17%)
+- JSON: 856 LOC (7%), 8 files (9%)
+- JavaScript: 396 LOC (3%), 7 files (8%)
 - Shell: 58 LOC (0%), 1 file (1%)

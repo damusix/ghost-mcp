@@ -62,9 +62,49 @@ claude mcp add ghost \
 
 ## Tools
 
+### `compose_post`
+
+Create or update a post from structured Koenig content blocks. Prefer this over
+pushing raw HTML or hand-writing Lexical — it produces clean, natively-editable
+posts. Prose blocks (`paragraph`, `heading`, `list`, `quote`) accept inline
+markdown (`**bold**`, `_italic_`, `` `code` ``, `[links](url)`); rich features
+are cards (`callout`, `image`, `button`, `bookmark`, `codeblock`, `toggle`,
+`gallery`, and more). Omit `id` to create; set `id` + `updated_at` to update.
+
+```json
+{
+    "title": "We shipped the editor",
+    "status": "draft",
+    "blocks": [
+        { "type": "heading", "level": 2, "text": "What's new" },
+        { "type": "paragraph", "text": "Try the **new** [editor](https://ghost.org)." },
+        { "type": "list", "style": "bullet", "items": ["Clean blocks", "Native editing"] },
+        { "type": "callout", "emoji": "🚀", "color": "green", "text": "Live now" },
+        { "type": "button", "text": "Get started", "url": "https://ghost.org" }
+    ]
+}
+```
+
+Each block becomes a native Lexical node, so the post stays granularly editable
+in Ghost — not a single opaque HTML block. See
+[docs/koenig-cards.md](docs/koenig-cards.md) for every block type and field.
+
+### `compose_lexical`
+
+Compile the same `blocks` into a Lexical JSON string without creating a post —
+useful for preview or feeding into `use_ghost_api` yourself.
+
+### `koenig_help`
+
+List all block types, or get the fields and a JSON example for one block.
+
+```json
+{ "block": "callout" }
+```
+
 ### `use_ghost_api`
 
-Execute Ghost API actions. Supports full CRUD on posts, pages, tags, members, newsletters, offers, tiers, users, webhooks, images, themes, and site settings.
+Execute Ghost API actions. Supports full CRUD on posts, pages, tags, members, newsletters, offers, tiers, users, webhooks, images, themes, and site settings. For post bodies, prefer `compose_post` over passing raw `lexical`/`html` here.
 
 ```json
 {
