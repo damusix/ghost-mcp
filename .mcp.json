@@ -6,6 +6,18 @@
                 "mcp",
                 "serve"
             ]
+        },
+        "ghost-mcp-local-test": {
+            "command": "node",
+            "args": [
+                "/Users/alonso/projects/github/ghost-mcp/dist/index.mjs"
+            ],
+            "env": {
+                "GHOST_URL": "http://localhost:2368",
+                "GHOST_API_VERSION": "v6.0",
+                "GHOST_ADMIN_API_KEY": "6a370a98634aa300014a9152:f1587d7e1365a1904fce8875f56c8e0880820422d230f579e4e72efbc97b55ad",
+                "GHOST_CONTENT_API_KEY": "52c066d050ad957dd686f3b659"
+            }
         }
     }
 }
