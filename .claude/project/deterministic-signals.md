@@ -1,15 +1,16 @@
 ---
-generated_at: 2026-06-21T08:30:13Z
+generated_at: 2026-06-21T16:29:34Z
 atomic_version: 5.5.0
 ---
 # Deterministic signals
 
 ## Tree
 
-├── .changeset/ (4)
+├── .changeset/ (5)
 │   ├── README.md (4a5dc83, 7L, 472ch, 472B)
 │   ├── compose-block-file.md (a53befa, 7L, 535ch, 537B)
 │   ├── config.json (2b7be8e, 11L, 327ch, 327B)
+│   ├── ghost-docs-let-it-fail.md (4e69ba0, 7L, 412ch, 412B)
 │   └── koenig-compose-tools.md (bfa8e8b, 7L, 635ch, 635B)
 ├── .claude/ (1)
 │   └── settings.json (4f6c1a8, 15L, 472ch, 472B)
@@ -83,7 +84,7 @@ atomic_version: 5.5.0
 │   │   │   ├── blocks-source.test.ts (0672f02, 67L, 2476ch, 2476B)
 │   │   │   ├── compose-post.test.ts (479ab3c, 109L, 3701ch, 3704B)
 │   │   │   ├── ghost-api-help.test.ts (da0015a, 80L, 3090ch, 3090B)
-│   │   │   ├── ghost-docs.test.ts (1924141, 76L, 2407ch, 2407B)
+│   │   │   ├── ghost-docs.test.ts (7ac29ac, 63L, 2116ch, 2116B)
 │   │   │   └── use-ghost-api.test.ts (24a7ba0, 178L, 5537ch, 5539B)
 │   │   ├── ghost-client.test.ts (7406f7a, 96L, 3146ch, 3146B)
 │   │   └── registry.test.ts (38d9a05, 88L, 3279ch, 3279B)
@@ -123,7 +124,7 @@ atomic_version: 5.5.0
 │   │   ├── compose-lexical.ts (b28325e, 34L, 1287ch, 1287B)
 │   │   ├── compose-post.ts (9b7a017, 83L, 3698ch, 3700B)
 │   │   ├── ghost-api-help.ts (8ff1f04, 62L, 2093ch, 2095B)
-│   │   ├── ghost-docs.ts (bd65d78, 91L, 2955ch, 2955B)
+│   │   ├── ghost-docs.ts (48267ec, 78L, 2597ch, 2597B)
 │   │   ├── koenig-help.ts (4b134c4, 17L, 489ch, 489B)
 │   │   └── use-ghost-api.ts (4d73182, 225L, 7621ch, 7625B)
 │   ├── ghost-client.ts (d8cd95e, 120L, 3285ch, 3287B)
@@ -131,7 +132,7 @@ atomic_version: 5.5.0
 │   └── types.ts (379e474, 256L, 6630ch, 6630B)
 ├── .gitignore (3071466, 12L, 175ch, 175B)
 ├── .graphifyignore (0351de5, 53L, 1229ch, 1897B)
-├── .mcp.json (14f011f, 11L, 174ch, 174B)
+├── .mcp.json (794c23c, 23L, 696ch, 696B)
 ├── .oxlintrc.json (ef67daa, 77L, 2721ch, 2721B)
 ├── .signalsignore (b0287a5, 17L, 662ch, 674B)
 ├── CHANGELOG.md (292e28e, 49L, 2749ch, 2757B)
@@ -150,9 +151,9 @@ atomic_version: 5.5.0
 
 ## Languages
 
-- TypeScript: 4566 LOC (37%), 49 files (56%)
+- TypeScript: 4540 LOC (37%), 49 files (55%)
 - YAML: 3907 LOC (32%), 6 files (6%)
-- Markdown: 2244 LOC (18%), 16 files (18%)
-- JSON: 856 LOC (7%), 8 files (9%)
-- JavaScript: 396 LOC (3%), 7 files (8%)
+- Markdown: 2251 LOC (18%), 17 files (19%)
+- JSON: 868 LOC (7%), 8 files (9%)
+- JavaScript: 396 LOC (3%), 7 files (7%)
 - Shell: 58 LOC (0%), 1 file (1%)

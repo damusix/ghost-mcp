@@ -21,10 +21,10 @@ CI runs `vp fmt` → `vp check` → `vp test` → `vp pack` on push/PR to `main`
 
 | Language | LOC | Files | % |
 |----------|-----|-------|---|
-| TypeScript | 4566 | 49 | 37% |
+| TypeScript | 4540 | 49 | 37% |
 | YAML | 3907 | 6 | 32% |
-| Markdown | 2244 | 16 | 18% |
-| JSON | 856 | 8 | 7% |
+| Markdown | 2251 | 17 | 18% |
+| JSON | 868 | 8 | 7% |
 | JavaScript | 396 | 7 | 3% |
 | Shell | 58 | 1 | <1% |
 

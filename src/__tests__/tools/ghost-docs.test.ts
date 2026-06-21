@@ -19,18 +19,6 @@ vi.mock('../../ghost-client.js', () => ({
     },
 }));
 
-// Mock @logosdx/utils
-vi.mock('@logosdx/utils', () => ({
-    attempt: vi.fn(async (fn: () => Promise<unknown>) => {
-        try {
-            const result = await fn();
-            return [result, null];
-        } catch (error) {
-            return [null, error];
-        }
-    }),
-}));
-
 describe('ghost-docs handler', () => {
     beforeEach(() => {
         vi.clearAllMocks();
@@ -68,9 +56,8 @@ describe('ghost-docs handler', () => {
         expect(result).toContain('Webhooks');
     });
 
-    it('handles fetch errors gracefully', async () => {
+    it('lets a fetch failure propagate (no swallowing)', async () => {
         vi.mocked(docsApi.get).mockRejectedValue(new Error('Network error'));
-        const result = await handleGhostDocs({ all: true });
-        expect(result).toContain('Error');
+        await expect(handleGhostDocs({ all: true })).rejects.toThrow('Network error');
     });
 });
