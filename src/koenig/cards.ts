@@ -3,6 +3,7 @@
 // Field aliases keep the block API readable (text/emoji/color) while emitting the
 // real lexical field names (calloutText/calloutEmoji/backgroundColor).
 import { NODE_SPECS } from './node-specs.js';
+import { isRecord } from './util.js';
 
 export type Fields = Record<string, unknown>;
 export type LexicalNode = Record<string, unknown>;
@@ -66,7 +67,7 @@ export const CARDS: Record<string, CardDef> = {
         build(fields) {
             const images = Array.isArray(fields.images) ? fields.images : [];
             const built = images.map((img, i) => {
-                const o = (img && typeof img === 'object' ? img : {}) as Record<string, unknown>;
+                const o = isRecord(img) ? img : {};
                 return {
                     fileName: o.fileName ?? `image-${i}.jpg`,
                     row: o.row ?? 0,

@@ -48,7 +48,7 @@ server.tool(
 
 server.tool(
     'compose_post',
-    'Create or update a Ghost post from structured Koenig content blocks (paragraphs, headings, lists, callouts, images, buttons, etc.). PREFER THIS over use_ghost_api with raw html/lexical — it produces clean, natively-editable posts. Omit `id` to create, set `id`+`updated_at` to update. Call koenig_help to discover block types and fields.',
+    'Create or update a Ghost post from structured Koenig content blocks (paragraphs, headings, lists, callouts, images, buttons, etc.). PREFER THIS over use_ghost_api with raw html/lexical — it produces clean, natively-editable posts. Pass blocks inline for short posts, or write them to a JSON file and pass `blockFile` (absolute path) for long posts. Omit `id` to create, set `id`+`updated_at` to update. Call koenig_help to discover block types and fields.',
     composePostSchema.shape,
     async (input) => {
         const result = await handleComposePost(input, GHOST_API_MODE);
@@ -91,6 +91,7 @@ server.registerPrompt(
                     text:
                         'When writing Ghost post content, do NOT push raw HTML into the API. Compose the post from structured Koenig blocks via the `compose_post` tool — this yields clean, natively-editable posts.\n\n' +
                         'Workflow: (1) call `koenig_help` to see block types; (2) build a `blocks` array — prose as paragraph/heading/list/quote blocks (their `text` supports inline **bold**, _italic_, `code`, [links](url)), and rich features as cards (callout, image, button, bookmark, embed, codeblock, toggle, gallery, etc.); (3) call `compose_post`. Use the `html` block ONLY when no native block fits.\n\n' +
+                        'For a short post, pass `blocks` inline. For a long post, write the blocks JSON to an absolute path (e.g. under tmp/), optionally validate it with `compose_lexical` (`blockFile`), then call `compose_post` with `blockFile` — this avoids re-sending the whole array on each edit.\n\n' +
                         blockHelp(),
                 },
             },

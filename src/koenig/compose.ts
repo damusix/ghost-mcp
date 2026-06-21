@@ -1,7 +1,8 @@
 // compose(blocks) -> a valid Lexical document string for the Ghost `lexical`
 // field. Aggregates per-block errors so the LLM gets actionable feedback.
-import { buildBlock, type Block } from './blocks.js';
+import { buildBlock } from './blocks.js';
 import type { LexicalNode } from './cards.js';
+import { isRecord } from './util.js';
 
 export interface ComposeIssue {
     index: number;
@@ -19,7 +20,7 @@ export class ComposeError extends Error {
     }
 }
 
-export function composeRoot(blocks: Block[]): LexicalNode {
+export function composeRoot(blocks: unknown[]): LexicalNode {
     if (!Array.isArray(blocks) || blocks.length === 0) {
         throw new ComposeError([
             { index: -1, type: '(none)', message: 'blocks must be a non-empty array' },
@@ -33,10 +34,7 @@ export function composeRoot(blocks: Block[]): LexicalNode {
         } catch (err) {
             issues.push({
                 index,
-                type:
-                    block && typeof block === 'object' && typeof block.type === 'string'
-                        ? block.type
-                        : '(invalid)',
+                type: isRecord(block) && typeof block.type === 'string' ? block.type : '(invalid)',
                 message: err instanceof Error ? err.message : String(err),
             });
         }
@@ -47,6 +45,6 @@ export function composeRoot(blocks: Block[]): LexicalNode {
     };
 }
 
-export function compose(blocks: Block[]): string {
+export function compose(blocks: unknown[]): string {
     return JSON.stringify(composeRoot(blocks));
 }

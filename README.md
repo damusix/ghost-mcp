@@ -89,6 +89,15 @@ Each block becomes a native Lexical node, so the post stays granularly editable
 in Ghost — not a single opaque HTML block. See
 [docs/koenig-cards.md](docs/koenig-cards.md) for every block type and field.
 
+For long posts, write the blocks to a JSON file (a bare `[...]` array or
+`{ "blocks": [...] }`) and pass its **absolute** path as `blockFile` instead of
+`blocks` — useful when iterating, so you edit the file rather than re-sending the
+whole array each time. Validate the file first with `compose_lexical`.
+
+```json
+{ "title": "Long post", "status": "draft", "blockFile": "/abs/path/tmp/post.json" }
+```
+
 ### `compose_lexical`
 
 Compile the same `blocks` into a Lexical JSON string without creating a post —

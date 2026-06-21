@@ -21,9 +21,9 @@ CI runs `vp fmt` → `vp check` → `vp test` → `vp pack` on push/PR to `main`
 
 | Language | LOC | Files | % |
 |----------|-----|-------|---|
+| TypeScript | 4566 | 49 | 37% |
 | YAML | 3907 | 6 | 32% |
-| TypeScript | 4403 | 46 | 37% |
-| Markdown | 2221 | 14 | 18% |
+| Markdown | 2244 | 16 | 18% |
 | JSON | 856 | 8 | 7% |
 | JavaScript | 396 | 7 | 3% |
 | Shell | 58 | 1 | <1% |
@@ -40,7 +40,7 @@ CI: GitHub Actions ([`.github/workflows/ci.yml`](../../.github/workflows/ci.yml)
 |--------|------------|-----------|--------|
 | mcp-server | [`src/index.ts`](../../src/index.ts), [`bin/`](../../bin), [`.github/`](../../.github) | MCP server bootstrap: registers 6 tools + 1 prompt (`compose_ghost_post`), stdio transport, env-driven API mode | [`.claude/project/signals/mcp-server.md`](signals/mcp-server.md) |
 | actions | [`src/actions/`](../../src/actions) | Ghost API action registry: 18 files × typed `ActionDefinition` objects, Zod schemas, keyed Map store | [`.claude/project/signals/actions.md`](signals/actions.md) |
-| client-tools | [`src/ghost-client.ts`](../../src/ghost-client.ts), [`src/types.ts`](../../src/types.ts), [`src/tools/`](../../src/tools), [`src/koenig/`](../../src/koenig) | HTTP clients + 6 MCP tool handlers: `use_ghost_api`, `ghost_api_help`, `ghost_docs`, `compose_post`, `compose_lexical`, `koenig_help`; Koenig composition layer ([`src/koenig/`](../../src/koenig)) converts structured block arrays to Ghost-native Lexical JSON | [`.claude/project/signals/client-tools.md`](signals/client-tools.md) |
+| client-tools | [`src/ghost-client.ts`](../../src/ghost-client.ts), [`src/types.ts`](../../src/types.ts), [`src/tools/`](../../src/tools), [`src/koenig/`](../../src/koenig) | HTTP clients + 6 MCP tool handlers: `use_ghost_api`, `ghost_api_help`, `ghost_docs`, `compose_post`, `compose_lexical`, `koenig_help`; Koenig composition layer ([`src/koenig/`](../../src/koenig)) converts structured block arrays to Lexical JSON; `compose_post`/`compose_lexical` accept blocks inline or via `blockFile` (abs path to local JSON) resolved by `blocks-source.ts` | [`.claude/project/signals/client-tools.md`](signals/client-tools.md) |
 | experimentation | [`docker-compose.yml`](../../docker-compose.yml), [`.noorm/`](../../.noorm), [`bin/ghost-keys.sh`](../../bin/ghost-keys.sh), [`sql/`](../../sql), [`changes/`](../../changes), [`scripts/koenig/`](../../scripts/koenig), [`docs/koenig-cards.md`](../../docs/koenig-cards.md), [`docs/koenig-cards.json`](../../docs/koenig-cards.json), [`docs/koenig-node-specs.json`](../../docs/koenig-node-specs.json), [`.mcp.json`](.mcp.json) | Local Ghost 6 + MySQL 8 stack, noorm MCP DB inspection, Koenig card lexical payload harness (25 card types), and static node-spec extractor from Koenig source | [`.claude/project/signals/experimentation.md`](signals/experimentation.md) |
 
 ## Cross-cutting

@@ -3,6 +3,7 @@
 // so they stay editable in Koenig; everything else dispatches to a card builder.
 import { parseInline, type InlineNode } from './inline.js';
 import { buildCardNode, isCardType, CARDS, type LexicalNode } from './cards.js';
+import { isRecord } from './util.js';
 
 export interface Block {
     type: string;
@@ -67,8 +68,12 @@ function buildProse(block: Block): LexicalNode | null {
     }
 }
 
-export function buildBlock(block: Block): LexicalNode {
-    if (!block || typeof block !== 'object' || typeof block.type !== 'string') {
+function isBlock(value: unknown): value is Block {
+    return isRecord(value) && typeof value.type === 'string';
+}
+
+export function buildBlock(block: unknown): LexicalNode {
+    if (!isBlock(block)) {
         throw new Error('each block must be an object with a string "type"');
     }
     const prose = buildProse(block);
