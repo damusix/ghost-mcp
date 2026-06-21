@@ -21,16 +21,16 @@ CI runs `vp fmt` → `vp check` → `vp test` → `vp pack` on push/PR to `main`
 
 | Language | LOC | Files | % |
 |----------|-----|-------|---|
-| TypeScript | 4540 | 49 | 37% |
-| YAML | 3907 | 6 | 32% |
-| Markdown | 2251 | 17 | 18% |
-| JSON | 868 | 8 | 7% |
-| JavaScript | 396 | 7 | 3% |
+| TypeScript | 4540 | 49 | 36% |
+| YAML | 3907 | 6 | 31% |
+| Markdown | 2246 | 17 | 17% |
+| JavaScript | 957 | 7 | 7% |
+| JSON | 874 | 8 | 6% |
 | Shell | 58 | 1 | <1% |
 
 ## DevOps & CI
 
-CI: GitHub Actions ([`.github/workflows/ci.yml`](../../.github/workflows/ci.yml)), Node 22 via `voidzero-dev/setup-vp@v1`. Releases: changesets (`@changesets/changelog-github`), targeting `main`, OIDC trusted npm publish (no stored token). Binary invokable via `npx ghost-mcp` or `bunx ghost-mcp`.
+CI: GitHub Actions ([`.github/workflows/ci.yml`](../../.github/workflows/ci.yml)), Node 22 via `voidzero-dev/setup-vp@v1`. Releases: changesets (`@changesets/changelog-github`), targeting `main`, OIDC trusted npm publish (no stored token); `pnpm/action-setup@v4` resolves pnpm version from the `packageManager` field in [`package.json`](../../package.json) (no `version:` key set — setting both conflicts). Binary invokable via `npx ghost-mcp` or `bunx ghost-mcp`.
 
 ---
 

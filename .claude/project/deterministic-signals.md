@@ -1,5 +1,5 @@
 ---
-generated_at: 2026-06-21T21:50:35Z
+generated_at: 2026-06-21T21:58:38Z
 atomic_version: 5.5.0
 ---
 # Deterministic signals
@@ -17,7 +17,7 @@ atomic_version: 5.5.0
 ├── .github/ (1)
 │   └── workflows/ (2)
 │       ├── ci.yml (6579880, 27L, 478ch, 478B)
-│       └── release.yml (64c17a5, 52L, 1509ch, 1509B)
+│       └── release.yml (a16c9c3, 52L, 1614ch, 1616B)
 ├── .noorm/ (2)
 │   ├── dev.env (e7bc70d, 14L, 521ch, 521B)
 │   └── settings.yml (d209c01, 39L, 1360ch, 1364B)
@@ -63,13 +63,13 @@ atomic_version: 5.5.0
 │   └── koenig-node-specs.json (f35bae2, 311L, 6640ch, 6645B)
 ├── scripts/ (1)
 │   └── koenig/ (7)
-│       ├── README.md (ab04e47, 43L, 1910ch, 1930B)
-│       ├── capture.mjs (ad908e9, 39L, 2096ch, 2096B)
-│       ├── cards.mjs (b4f29ef, 69L, 7039ch, 7480B)
-│       ├── extract-specs.mjs (7c9d517, 59L, 2986ch, 2994B)
-│       ├── gallery.mjs (0ffbfef, 46L, 2628ch, 2630B)
-│       ├── gen-doc.mjs (5b0a850, 119L, 7719ch, 7735B)
-│       └── roundtrip.mjs (7811160, 62L, 3049ch, 3055B)
+│       ├── README.md (ae7f2b5, 38L, 1905ch, 1925B)
+│       ├── capture.mjs (03f716a, 72L, 2397ch, 2397B)
+│       ├── cards.mjs (e377828, 346L, 9980ch, 10421B)
+│       ├── extract-specs.mjs (2ef456e, 87L, 3396ch, 3404B)
+│       ├── gallery.mjs (2f60349, 114L, 3078ch, 3080B)
+│       ├── gen-doc.mjs (ccb4ff9, 213L, 8373ch, 8389B)
+│       └── roundtrip.mjs (5b00fea, 123L, 3705ch, 3711B)
 ├── sql/ (1)
 │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
 ├── src/ (7)
@@ -151,9 +151,9 @@ atomic_version: 5.5.0
 
 ## Languages
 
-- TypeScript: 4540 LOC (37%), 49 files (55%)
-- YAML: 3907 LOC (32%), 6 files (6%)
-- Markdown: 2251 LOC (18%), 17 files (19%)
-- JSON: 874 LOC (7%), 8 files (9%)
-- JavaScript: 396 LOC (3%), 7 files (7%)
+- TypeScript: 4540 LOC (36%), 49 files (55%)
+- YAML: 3907 LOC (31%), 6 files (6%)
+- Markdown: 2246 LOC (17%), 17 files (19%)
+- JavaScript: 957 LOC (7%), 7 files (7%)
+- JSON: 874 LOC (6%), 8 files (9%)
 - Shell: 58 LOC (0%), 1 file (1%)

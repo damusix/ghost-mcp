@@ -1,6 +1,5 @@
 # Koenig card harness
 
-
 Scripts that derive and validate the canonical lexical payload for every Ghost
 Koenig card by round-tripping through the local Ghost (see
 [../../docs/experimentation.md](../../docs/experimentation.md) for the stack).
@@ -20,9 +19,7 @@ Requires the stack up (`docker compose up -d`) and a local `.env`
 git clone --depth 1 https://github.com/TryGhost/Koenig.git tmp/koenig-repo
 ```
 
-
 ## Scripts
-
 
 - `cards.mjs` — candidate payload for every card (the source of truth to edit).
 - `roundtrip.mjs` — POST each card to the local Admin API; report accept/render status. Probes are deleted after.
@@ -31,9 +28,7 @@ git clone --depth 1 https://github.com/TryGhost/Koenig.git tmp/koenig-repo
 - `gen-doc.mjs` — regenerate `docs/koenig-cards.md` from the canonical payloads + specs + curated notes.
 - `gallery.mjs` — publish one "Koenig Card Gallery" post containing every card for visual inspection.
 
-
 ## Regenerate
-
 
 ```bash
 node scripts/koenig/extract-specs.mjs   # refresh schema from cloned Koenig source
