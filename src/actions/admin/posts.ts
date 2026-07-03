@@ -40,9 +40,9 @@ const postWriteFields = {
     lexical: z.string().optional().describe('Post content in Lexical JSON format'),
     status: z.enum(['published', 'draft', 'scheduled']).optional().describe('Post status'),
     tags: z
-        .array(z.union([z.object({ id: z.string() }), z.object({ name: z.string() })]))
+        .array(z.union([z.string(), z.object({ id: z.string() }), z.object({ name: z.string() })]))
         .optional()
-        .describe('Tags to assign (by id or name)'),
+        .describe('Tags to assign — a tag name string, or an object { id } or { name }'),
     authors: z
         .array(z.object({ id: z.string() }))
         .optional()

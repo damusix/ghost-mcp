@@ -1,17 +1,16 @@
 ---
-generated_at: 2026-06-21T22:08:17Z
-atomic_version: 5.5.0
+generated_at: 2026-07-03T18:50:22Z
+atomic_version: 5.9.0
 ---
 # Deterministic signals
 
 ## Tree
 
-├── .changeset/ (5)
+├── .changeset/ (4)
 │   ├── README.md (4a5dc83, 7L, 472ch, 472B)
-│   ├── compose-block-file.md (a53befa, 7L, 535ch, 537B)
 │   ├── config.json (2b7be8e, 11L, 327ch, 327B)
-│   ├── ghost-docs-let-it-fail.md (4e69ba0, 7L, 412ch, 412B)
-│   └── koenig-compose-tools.md (bfa8e8b, 7L, 635ch, 635B)
+│   ├── server-version-from-package.md (3e910b0, 5L, 163ch, 163B)
+│   └── surface-errors-unwrap-responses.md (24c160e, 10L, 828ch, 830B)
 ├── .claude/ (1)
 │   └── settings.json (4f6c1a8, 15L, 472ch, 472B)
 ├── .github/ (1)
@@ -72,8 +71,8 @@ atomic_version: 5.5.0
 │       └── roundtrip.mjs (5b00fea, 123L, 3705ch, 3711B)
 ├── sql/ (1)
 │   └── .gitkeep (e3b0c44, 0L, 0ch, 0B)
-├── src/ (7)
-│   ├── __tests__/ (5)
+├── src/ (8)
+│   ├── __tests__/ (6)
 │   │   ├── actions/ (2)
 │   │   │   ├── admin-posts.test.ts (5cb6ff7, 141L, 4607ch, 4607B)
 │   │   │   └── content-posts.test.ts (f4b8200, 67L, 2347ch, 2347B)
@@ -82,20 +81,21 @@ atomic_version: 5.5.0
 │   │   │   └── inline.test.ts (63782b5, 57L, 2235ch, 2235B)
 │   │   ├── tools/ (5)
 │   │   │   ├── blocks-source.test.ts (0672f02, 67L, 2476ch, 2476B)
-│   │   │   ├── compose-post.test.ts (6a6888d, 109L, 3691ch, 3694B)
+│   │   │   ├── compose-post.test.ts (cbcdf20, 109L, 3721ch, 3724B)
 │   │   │   ├── ghost-api-help.test.ts (da0015a, 80L, 3090ch, 3090B)
 │   │   │   ├── ghost-docs.test.ts (7ac29ac, 63L, 2116ch, 2116B)
-│   │   │   └── use-ghost-api.test.ts (24a7ba0, 178L, 5537ch, 5539B)
+│   │   │   └── use-ghost-api.test.ts (41fe9e0, 279L, 9758ch, 9762B)
 │   │   ├── ghost-client.test.ts (7406f7a, 96L, 3146ch, 3146B)
-│   │   └── registry.test.ts (38d9a05, 88L, 3279ch, 3279B)
+│   │   ├── registry.test.ts (38d9a05, 88L, 3279ch, 3279B)
+│   │   └── version.test.ts (39ed939, 12L, 387ch, 387B)
 │   ├── actions/ (3)
 │   │   ├── admin/ (12)
 │   │   │   ├── images.ts (2c8a598, 20L, 735ch, 735B)
 │   │   │   ├── members.ts (a5a48f5, 81L, 2693ch, 2693B)
 │   │   │   ├── newsletters.ts (5ef4853, 119L, 5498ch, 5498B)
-│   │   │   ├── offers.ts (9c8182e, 92L, 3081ch, 3081B)
-│   │   │   ├── pages.ts (f95050a, 143L, 5639ch, 5639B)
-│   │   │   ├── posts.ts (107dfea, 176L, 6856ch, 6856B)
+│   │   │   ├── offers.ts (d066b40, 100L, 3425ch, 3425B)
+│   │   │   ├── pages.ts (893aab5, 143L, 5688ch, 5690B)
+│   │   │   ├── posts.ts (daef23e, 176L, 6905ch, 6907B)
 │   │   │   ├── site.ts (c63cb0d, 15L, 411ch, 411B)
 │   │   │   ├── tags.ts (55e6576, 99L, 3592ch, 3592B)
 │   │   │   ├── themes.ts (0d3713f, 31L, 928ch, 928B)
@@ -126,34 +126,35 @@ atomic_version: 5.5.0
 │   │   ├── ghost-api-help.ts (8ff1f04, 62L, 2093ch, 2095B)
 │   │   ├── ghost-docs.ts (48267ec, 78L, 2597ch, 2597B)
 │   │   ├── koenig-help.ts (4b134c4, 17L, 489ch, 489B)
-│   │   └── use-ghost-api.ts (4d73182, 225L, 7621ch, 7625B)
+│   │   └── use-ghost-api.ts (bace5a1, 245L, 8435ch, 8439B)
 │   ├── ghost-client.ts (d8cd95e, 120L, 3285ch, 3287B)
-│   ├── index.ts (99b08b4, 111L, 5064ch, 5076B)
-│   └── types.ts (379e474, 256L, 6630ch, 6630B)
+│   ├── index.ts (1213c0c, 112L, 5104ch, 5116B)
+│   ├── types.ts (379e474, 256L, 6630ch, 6630B)
+│   └── version.ts (478a444, 6L, 210ch, 210B)
 ├── .gitignore (3071466, 12L, 175ch, 175B)
 ├── .graphifyignore (0351de5, 53L, 1229ch, 1897B)
 ├── .mcp.json (794c23c, 23L, 696ch, 696B)
 ├── .oxlintrc.json (ef67daa, 77L, 2721ch, 2721B)
 ├── .signalsignore (b0287a5, 17L, 662ch, 674B)
-├── CHANGELOG.md (292e28e, 49L, 2749ch, 2757B)
+├── CHANGELOG.md (a3612df, 67L, 4724ch, 4734B)
 ├── CLAUDE.md (eec34c2, 17L, 576ch, 576B)
 ├── LICENSE (42eaf96, 21L, 1070ch, 1070B)
 ├── README.md (7929779, 174L, 5268ch, 5281B)
 ├── docker-compose.yml (11b22d1, 60L, 1849ch, 1851B)
-├── package.json (a7b5841, 62L, 1545ch, 1547B)
+├── package.json (7498b92, 62L, 1545ch, 1547B)
 ├── pnpm-lock.yaml (9648f9d, 3719L, 117910ch, 117910B)
 ├── tsconfig.json (e1e0c50, 17L, 448ch, 448B)
 └── vite.config.ts (ccec1ac, 26L, 739ch, 739B)
 
 ## Manifests
 
-- package.json: name=@damusix/ghost-mcp, version=0.3.0, scripts=[build, check, dev, fmt, lint, test]
+- package.json: name=@damusix/ghost-mcp, version=0.4.0, scripts=[build, check, dev, fmt, lint, test]
 
 ## Languages
 
-- TypeScript: 4570 LOC (36%), 49 files (55%)
+- TypeScript: 4718 LOC (36%), 51 files (57%)
 - YAML: 3907 LOC (30%), 6 files (6%)
-- Markdown: 2246 LOC (17%), 17 files (19%)
+- Markdown: 2258 LOC (17%), 16 files (17%)
 - JavaScript: 957 LOC (7%), 7 files (7%)
-- JSON: 874 LOC (6%), 8 files (9%)
+- JSON: 874 LOC (6%), 8 files (8%)
 - Shell: 58 LOC (0%), 1 file (1%)

@@ -2,7 +2,7 @@
 
 ## Framework & runtime
 
-TypeScript ESM package (`"type": "module"`), Node.js, built with `vite-plus` (`vp`). Package manager pinned to `pnpm@10.33.0` via `packageManager` field; `pnpm.onlyBuiltDependencies: ["esbuild"]` approves esbuild's postinstall script (required since pnpm 11 blocks unapproved build scripts by default). MCP server over stdio transport using `@modelcontextprotocol/sdk`. HTTP via `@logosdx/fetch` `FetchEngine` with built-in retry/cache/rate-limit/dedupe. Zod for all schema validation. JWT (`jsonwebtoken`, HS256) for Ghost Admin API auth. Published as `@damusix/ghost-mcp` v0.3.0.
+TypeScript ESM package (`"type": "module"`), Node.js, built with `vite-plus` (`vp`). Package manager pinned to `pnpm@10.33.0` via `packageManager` field; `pnpm.onlyBuiltDependencies: ["esbuild"]` approves esbuild's postinstall script (required since pnpm 11 blocks unapproved build scripts by default). MCP server over stdio transport using `@modelcontextprotocol/sdk`. HTTP via `@logosdx/fetch` `FetchEngine` with built-in retry/cache/rate-limit/dedupe. Zod for all schema validation. JWT (`jsonwebtoken`, HS256) for Ghost Admin API auth. Published as `@damusix/ghost-mcp` v0.4.0.
 
 ## Build / test / lint
 
@@ -21,9 +21,9 @@ CI runs `vp fmt` → `vp check` → `vp test` → `vp pack` on push/PR to `main`
 
 | Language | LOC | Files | % |
 |----------|-----|-------|---|
-| TypeScript | 4570 | 49 | 36% |
-| YAML | 3907 | 6 | 31% |
-| Markdown | 2246 | 17 | 17% |
+| TypeScript | 4718 | 51 | 36% |
+| YAML | 3907 | 6 | 30% |
+| Markdown | 2258 | 16 | 17% |
 | JavaScript | 957 | 7 | 7% |
 | JSON | 874 | 8 | 6% |
 | Shell | 58 | 1 | <1% |

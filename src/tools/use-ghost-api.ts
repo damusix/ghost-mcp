@@ -5,6 +5,26 @@ import mimeDb from 'mime-db';
 import { adminApi, contentApi } from '../ghost-client.js';
 import { getAction } from '../actions/registry.js';
 import type { ApiType } from '../actions/registry.js';
+import { isRecord } from '../koenig/util.js';
+
+/**
+ * Surface the Ghost API error body instead of just the HTTP status text.
+ * `@logosdx/fetch` puts the parsed response on `err.data`; Ghost returns
+ * `{ errors: [{ message, context, type, property, ... }] }`. Without this the
+ * caller only sees "Unprocessable Entity" and cannot tell what actually failed.
+ */
+function formatApiError(err: unknown): string {
+    if (isRecord(err)) {
+        const status = typeof err.status === 'number' ? err.status : undefined;
+        if (isRecord(err.data) && Array.isArray(err.data.errors) && err.data.errors.length > 0) {
+            return JSON.stringify({ status, errors: err.data.errors });
+        }
+        if (typeof err.message === 'string') {
+            return JSON.stringify({ status, error: err.message });
+        }
+    }
+    return JSON.stringify({ error: String(err) });
+}
 
 const extToMime: Record<string, string> = {};
 for (const [mime, meta] of Object.entries(mimeDb)) {
@@ -129,19 +149,19 @@ export async function handleUseGhostApi(input: UseGhostApiInput, mode: string): 
             engine.get(path, { params: queryParams }),
         );
         if (err) {
-            return JSON.stringify({ error: err.message });
+            return formatApiError(err);
         }
-        return JSON.stringify(response);
+        return JSON.stringify(response!.data);
     }
 
     if (actionDef.method === 'DELETE') {
         const [response, err] = await attempt(async () => engine.delete(path));
         if (err) {
-            return JSON.stringify({ error: err.message });
+            return formatApiError(err);
         }
         const resourcePrefix = `/${actionDef.name.split('.')[0]}`;
         await engine.invalidatePath(resourcePrefix);
-        return JSON.stringify(response ?? { success: true });
+        return JSON.stringify(response?.data ?? { success: true });
     }
 
     // POST or PUT — build body wrapped in resource key
@@ -152,19 +172,19 @@ export async function handleUseGhostApi(input: UseGhostApiInput, mode: string): 
     if (actionDef.method === 'POST') {
         const [response, err] = await attempt(async () => engine.post(path, wrappedBody));
         if (err) {
-            return JSON.stringify({ error: err.message });
+            return formatApiError(err);
         }
-        return JSON.stringify(response);
+        return JSON.stringify(response!.data);
     }
 
     if (actionDef.method === 'PUT') {
         const [response, err] = await attempt(async () => engine.put(path, wrappedBody));
         if (err) {
-            return JSON.stringify({ error: err.message });
+            return formatApiError(err);
         }
         const resourcePrefix = `/${actionDef.name.split('.')[0]}`;
         await engine.invalidatePath(resourcePrefix);
-        return JSON.stringify(response);
+        return JSON.stringify(response!.data);
     }
 
     return JSON.stringify({ error: `Unsupported method: ${actionDef.method}` });
@@ -219,7 +239,7 @@ async function handleFileUpload(
         }),
     );
     if (err) {
-        return JSON.stringify({ error: err.message });
+        return formatApiError(err);
     }
-    return JSON.stringify(response);
+    return JSON.stringify(response!.data);
 }

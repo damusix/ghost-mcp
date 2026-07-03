@@ -35,7 +35,7 @@ describe('compose_post handler', () => {
     });
 
     it('creates a post with composed lexical, not raw html', async () => {
-        vi.mocked(adminApi.post).mockResolvedValue({ posts: [{ id: 'abc' }] });
+        vi.mocked(adminApi.post).mockResolvedValue({ data: { posts: [{ id: 'abc' }] } });
 
         await handleComposePost(
             {
@@ -65,7 +65,7 @@ describe('compose_post handler', () => {
     });
 
     it('updates an existing post when id is provided (PUT)', async () => {
-        vi.mocked(adminApi.put).mockResolvedValue({ posts: [{ id: 'abc' }] });
+        vi.mocked(adminApi.put).mockResolvedValue({ data: { posts: [{ id: 'abc' }] } });
 
         await handleComposePost(
             {
@@ -94,7 +94,7 @@ describe('compose_post handler', () => {
     });
 
     it('maps excerpt to custom_excerpt', async () => {
-        vi.mocked(adminApi.post).mockResolvedValue({ posts: [{ id: 'abc' }] });
+        vi.mocked(adminApi.post).mockResolvedValue({ data: { posts: [{ id: 'abc' }] } });
 
         await handleComposePost(
             { title: 'X', excerpt: 'A summary', blocks: [{ type: 'paragraph', text: 'hi' }] },

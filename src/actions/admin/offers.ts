@@ -1,7 +1,14 @@
 import { z } from 'zod';
 import type { ActionDefinition } from '../registry.js';
 
-const browseParams = z.object({}).describe('No parameters required');
+// Ghost's offers endpoint returns the full list without pagination meta;
+// filter is the only browse option it honors (e.g. "status:active").
+const browseParams = z.object({
+    filter: z
+        .string()
+        .optional()
+        .describe('NQL filter expression (e.g. "status:active" or "status:archived")'),
+});
 
 const readParams = z.object({
     id: z.string().describe('Offer ID'),
@@ -52,7 +59,8 @@ export const adminOfferActions: ActionDefinition[] = [
         method: 'GET',
         path: '/offers/',
         inputSchema: browseParams,
-        description: 'Browse all offers',
+        description: 'Browse all offers (Ghost returns the full list; filter by status)',
+        example: { filter: 'status:active' },
     },
     {
         name: 'offers.read',

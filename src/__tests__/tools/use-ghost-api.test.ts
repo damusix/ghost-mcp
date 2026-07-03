@@ -175,4 +175,105 @@ describe('use-ghost-api handler', () => {
 
         expect(adminApi.delete).toHaveBeenCalledWith('/posts/abc123/');
     });
+
+    it('surfaces the Ghost error body (message + context + status), not just the HTTP status text', async () => {
+        const ghostError = Object.assign(new Error('Unprocessable Entity'), {
+            status: 422,
+            data: {
+                errors: [
+                    {
+                        message: 'Validation error, cannot save post.',
+                        context: 'Invalid lexical structure.',
+                        type: 'ValidationError',
+                        property: 'lexical',
+                    },
+                ],
+            },
+        });
+        vi.mocked(adminApi.post).mockRejectedValue(ghostError);
+
+        const result = await handleUseGhostApi(
+            { api: 'admin', action: 'posts.add', payload: { title: 'X', lexical: '{bad}' } },
+            'admin',
+        );
+        const parsed = JSON.parse(result);
+        expect(parsed.status).toBe(422);
+        expect(parsed.errors[0].context).toBe('Invalid lexical structure.');
+        expect(parsed.errors[0].property).toBe('lexical');
+        // not the old opaque shape
+        expect(parsed.error).toBeUndefined();
+    });
+
+    it('accepts tags as plain name strings (not only objects)', async () => {
+        vi.mocked(adminApi.post).mockResolvedValue({ data: { posts: [{ id: '1' }] } } as never);
+
+        const result = await handleUseGhostApi(
+            { api: 'admin', action: 'posts.add', payload: { title: 'X', tags: ['News'] } },
+            'admin',
+        );
+        const parsed = JSON.parse(result);
+        expect(parsed.error).toBeUndefined();
+        expect(parsed.posts[0].id).toBe('1');
+        const [, body] = vi.mocked(adminApi.post).mock.calls[0];
+        expect((body as { posts: Record<string, unknown>[] }).posts[0].tags).toEqual(['News']);
+    });
+
+    it('returns the Ghost body — pagination meta stays visible, transport wrapper and auth header do not leak', async () => {
+        vi.mocked(adminApi.get).mockResolvedValue({
+            data: {
+                tags: [{ id: 't1', name: 'News' }],
+                meta: { pagination: { page: 2, limit: 2, pages: 3, total: 6, next: 3, prev: 1 } },
+            },
+            status: 200,
+            headers: { 'content-type': 'application/json' },
+            config: { headers: { Authorization: 'Ghost secret-jwt' } },
+        } as never);
+
+        const result = await handleUseGhostApi(
+            { api: 'admin', action: 'tags.browse', payload: { limit: 2, page: 2 } },
+            'admin',
+        );
+        const parsed = JSON.parse(result);
+        expect(parsed.tags).toEqual([{ id: 't1', name: 'News' }]);
+        expect(parsed.meta.pagination.page).toBe(2);
+        expect(parsed.meta.pagination.next).toBe(3);
+        // the FetchEngine wrapper (headers, config, JWT) must never reach the client
+        expect(result).not.toContain('Authorization');
+        expect(parsed.config).toBeUndefined();
+        expect(parsed.headers).toBeUndefined();
+    });
+
+    it('falls back to a success marker when DELETE returns no body', async () => {
+        vi.mocked(adminApi.delete).mockResolvedValue(undefined as never);
+
+        const result = await handleUseGhostApi(
+            { api: 'admin', action: 'posts.delete', payload: { id: 'abc123' } },
+            'admin',
+        );
+        expect(JSON.parse(result)).toEqual({ success: true });
+    });
+
+    it('surfaces the Ghost error body on upload failures too', async () => {
+        const ghostError = Object.assign(new Error('Unsupported Media Type'), {
+            status: 415,
+            data: {
+                errors: [
+                    { message: 'Please select a valid image.', type: 'UnsupportedMediaTypeError' },
+                ],
+            },
+        });
+        vi.mocked(adminApi.post).mockRejectedValue(ghostError);
+
+        const result = await handleUseGhostApi(
+            {
+                api: 'admin',
+                action: 'images.upload',
+                payload: { file: Buffer.from('not-an-image').toString('base64') },
+            },
+            'admin',
+        );
+        const parsed = JSON.parse(result);
+        expect(parsed.status).toBe(415);
+        expect(parsed.errors[0].message).toBe('Please select a valid image.');
+    });
 });
