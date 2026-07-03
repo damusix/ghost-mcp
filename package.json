@@ -1,6 +1,6 @@
 {
     "name": "@damusix/ghost-mcp",
-    "version": "0.4.1",
+    "version": "0.5.0",
     "description": "MCP server for Ghost CMS — manage content, members, newsletters, and more via LLMs",
     "keywords": [
         "ai",
