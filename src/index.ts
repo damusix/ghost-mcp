@@ -8,12 +8,13 @@ import { composePostSchema, handleComposePost } from './tools/compose-post.js';
 import { composeLexicalSchema, handleComposeLexical } from './tools/compose-lexical.js';
 import { koenigHelpSchema, handleKoenigHelp } from './tools/koenig-help.js';
 import { blockHelp } from './koenig/index.js';
+import { VERSION } from './version.js';
 
 const GHOST_API_MODE = process.env.GHOST_API_MODE || 'admin';
 
 const server = new McpServer({
     name: 'ghost-mcp',
-    version: '0.1.0',
+    version: VERSION,
 });
 
 server.tool(
