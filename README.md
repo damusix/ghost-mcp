@@ -158,6 +158,28 @@ Search Ghost documentation via `docs.ghost.org/llms.txt`.
 - **Admin mode** (default): Full access to all Ghost Admin API and Content API actions. Requires `GHOST_ADMIN_API_KEY`.
 - **Content mode**: Read-only access to Content API actions only. Requires `GHOST_CONTENT_API_KEY`. Admin actions are rejected with a clear error.
 
+## Bundled skill: `ghost-writing`
+
+The package ships an [Agent Skill](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview)
+at [`skills/ghost-writing/`](skills/ghost-writing/SKILL.md) that pairs with the
+MCP server: which tool to use when, the full Koenig block catalog with guidance
+on choosing between similar blocks, and best practices for structuring good
+posts (drafting workflow, long-post `blockFile` iteration, publishing,
+newsletters, members-only content).
+
+Install it by copying the folder into your skills directory:
+
+```bash
+# per-project
+cp -r node_modules/@damusix/ghost-mcp/skills/ghost-writing .claude/skills/
+
+# or global (Claude Code)
+cp -r node_modules/@damusix/ghost-mcp/skills/ghost-writing ~/.claude/skills/
+```
+
+Claude picks it up automatically the next time a conversation involves writing
+Ghost posts.
+
 ## Development
 
 Spin up a throwaway Ghost 6 + MySQL 8 stack to exercise the server against a
