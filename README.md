@@ -167,14 +167,10 @@ on choosing between similar blocks, and best practices for structuring good
 posts (drafting workflow, long-post `blockFile` iteration, publishing,
 newsletters, members-only content).
 
-Install it by copying the folder into your skills directory:
+Install it:
 
 ```bash
-# per-project
-cp -r node_modules/@damusix/ghost-mcp/skills/ghost-writing .claude/skills/
-
-# or global (Claude Code)
-cp -r node_modules/@damusix/ghost-mcp/skills/ghost-writing ~/.claude/skills/
+npx skills add damusix/ghost-mcp
 ```
 
 Claude picks it up automatically the next time a conversation involves writing
