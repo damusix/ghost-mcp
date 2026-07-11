@@ -173,6 +173,11 @@ Install it:
 npx skills add damusix/ghost-mcp
 ```
 
+Or download the packaged
+[`ghost-writing.skill`](https://github.com/damusix/ghost-mcp/releases/latest/download/ghost-writing.skill)
+from the latest release — upload it to claude.ai (Settings → Capabilities) or
+unzip it into `~/.claude/skills/`.
+
 Claude picks it up automatically the next time a conversation involves writing
 Ghost posts.
 
